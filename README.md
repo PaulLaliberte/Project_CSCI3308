@@ -1,4 +1,4 @@
-# DPDS, Where Are They Now?=
+# DPDS, Where Are They Now?
 
 Will Christie
 
