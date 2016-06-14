@@ -7,8 +7,8 @@ Table2:
 (integer)(integer) (unix timestamp)(integer)(double)  (double)  (double)    (double)   (single integer)
 
 Table3:
-DRONE ID|DRONE STATUS|DRONE Lat|DRONE Lon
-(integer)(integer)   (double)  (double)
+DRONE ID|DRONE STATUS|DRONE Lat|DRONE Lon|Drone Desciption|
+(integer)(integer)   (double)  (double)  (128 chars)
 
 Table4:
 |ORDER STATUS ID|ORDER STATUS DESCRIPTION|
