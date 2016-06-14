@@ -1,10 +1,10 @@
 Table1: 
-|CLIENT ID|CLEINT NAME|BUSSINESS|
-(integer) (128 chars) (128 chars)
+|CLIENT ID|CLEINT NAME|BUSSINESS|SenderLat|SenderLong|
+(integer) (128 chars) (128 chars) (double)  (double)
 
 Table2:
-|ORDER ID|CLIENT ID|ORDERDATE/TIME|DRONE ID|SenderLat|SenderLon|RecieverLat|RecieverLon|ORDER STATUS ID|
-(integer)(integer) (unix timestamp)(integer)(double)  (double)  (double)    (double)   (single integer)
+|ORDER ID|CLIENT ID|ORDERDATE/TIME|DRONE ID|RecieverLat|RecieverLon|ORDER STATUS ID|
+(integer)(integer) (unix timestamp)(integer) (double)    (double)   (single integer)
 
 Table3:
 DRONE ID|DRONE STATUS|DRONE Lat|DRONE Lon|Drone Desciption|
