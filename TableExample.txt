@@ -1,0 +1,11 @@
+Table1: 
+|CLIENT ID|CLEINT NAME|BUSSINESS|
+
+Table2:
+|ORDER ID|CLIENT ID|ORDERDATE/TIME|DRONE ID|SenderLat|SenderLong|RecieverLat|RecieverLong|ORDER STATUS|
+
+Table3:
+DRONE ID|DRONE STATUS|DRONE COORDINATES|
+
+Table Interaction:
+T1 <--------> T2 <---------> T3
