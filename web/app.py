@@ -2,7 +2,7 @@
 
 #import flask from Flask module
 from flask import Flask, render_template, redirect, url_for, request
-from flask.ext.bootstrap import Bootstrap
+from flask_bootstrap import Bootstrap
 
 
 
