@@ -1,14 +1,3 @@
-# DPDS, Where Are They Now?
-
-Will Christie
-
-Kylee Budai
-
-Nicholas Johnston
-
-Paul Laliberte
-
-
 
 **Flask Setup:**
 
@@ -16,10 +5,9 @@ To run the server you will need to follow the steps below.
 
 1. You will need to download and install flask: https://pypi.python.org/pypi/Flask/0.11
 
-3. After download: <pip install Flask>.
+3. After download: `<pip install Flask>`.
 
-4. cd into the Flask directory and <git clone https://github.com/PaulLaliberte/Project_CSCI3308>. Note, you must clone
-in the Flask directory to be able to run the server.
+4. cd into the Flask directory and <git clone https://github.com/PaulLaliberte/Project_CSCI3308>. Note, you must clone in the Flask directory to be able to run the server.
 
 5. There will be a dirctory called web. It contains app.py, static, and templates. 
 
@@ -29,7 +17,7 @@ Static holds third-party files (i.e. Jquery, bootstrap, ect.).
 
 app.py is where we connect/direct our static and template files.
 
-6. To start the webserver: <python app.py> and copy the url from terminal (it will be a local host). To shutdown server
+To start the webserver: `<python app.py>` and copy the url from terminal (it will be a local host). To shutdown server
 press control-C from the command line. 
 
 
