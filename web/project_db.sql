@@ -58,4 +58,5 @@ PRIMARY KEY (`Status`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 INSERT INTO `OrderStatus` (`Status`, `Description`) VALUES
-(1, 'words');
+(0, 'malfunction'),
+(1, 'functioning');
