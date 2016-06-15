@@ -5,7 +5,7 @@ To run the server you will need to follow the steps below.
 
 1. You will need to download flask: https://pypi.python.org/pypi/Flask/0.11
 
-2.`<pip install Flask>`.
+2. `<pip install Flask>`.
 
 3. cd into the Flask directory and <git clone https://github.com/PaulLaliberte/Project_CSCI3308>. Note, you must clone in the Flask directory to be able to run the server.
 
