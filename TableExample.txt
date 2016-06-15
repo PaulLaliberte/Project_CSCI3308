@@ -1,11 +1,17 @@
 Table1: 
-|CLIENT ID|CLEINT NAME|BUSSINESS|
+|CLIENT ID|CLEINT NAME|BUSSINESS|SenderLat|SenderLong|
+(integer) (128 chars) (128 chars) (double)  (double)
 
 Table2:
-|ORDER ID|CLIENT ID|ORDERDATE/TIME|DRONE ID|SenderLat|SenderLong|RecieverLat|RecieverLong|ORDER STATUS|
+|ORDER ID|CLIENT ID|ORDERDATE/TIME|DRONE ID|RecieverLat|RecieverLon|ORDER STATUS ID|
+(integer)(integer) (unix timestamp)(integer) (double)    (double)   (single integer)
 
 Table3:
-DRONE ID|DRONE STATUS|DRONE COORDINATES|
+DRONE ID|DRONE STATUS|DRONE Lat|DRONE Lon|Drone Desciption|
+(integer)(integer)   (double)  (double)  (128 chars)
 
+Table4:
+|ORDER STATUS ID|ORDER STATUS DESCRIPTION|
+(integer)       (128 chars)
 Table Interaction:
 T1 <--------> T2 <---------> T3
