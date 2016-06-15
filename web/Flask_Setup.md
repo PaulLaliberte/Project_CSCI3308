@@ -17,7 +17,7 @@ Static holds third-party files (i.e. Jquery, bootstrap, ect.).
 
 app.py is where we connect/direct our static and template files.
 
-6. To start the webserver: `<python app.py>` and copy the url from terminal (it will be a local host). To shutdown server
+To start the webserver: `<python app.py>` and copy the url from terminal (it will be a local host). To shutdown server
 press control-C from the command line. 
 
 
