@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS project_db;
+USE project;
+
 CREATE TABLE IF NOT EXISTS `Clients` (
 `Id` int(2) NOT NULL auto_increment,
 `Name` varchar(40) NOT NULL,
