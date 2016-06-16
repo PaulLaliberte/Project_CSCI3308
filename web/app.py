@@ -5,7 +5,6 @@ from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap
 
 
-
 #create an instant of an application object 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
@@ -14,7 +13,8 @@ bootstrap = Bootstrap(app)
 #More on decorators: http://flask.pocoo.org/docs/0.11/patterns/viewdecorators/
 @app.route('/')
 def home():
-    return render_template('bootstrap_temp.html')
+    return render_template('home.html')
+    print "Hello"
 
 @app.route('/sampleHTML2')
 def another_page():
