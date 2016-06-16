@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS project_db
+CREATE DATABASE IF NOT EXISTS project_db;
 USE project_db;
 
 CREATE TABLE IF NOT EXISTS `Clients` (
