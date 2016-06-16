@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.12, for Linux (x86_64)
 --
--- Host: localhost    Database: project
+-- Host: localhost    Database: project_db
 -- ------------------------------------------------------
 -- Server version	5.7.12-0ubuntu1
 
@@ -38,7 +38,7 @@ CREATE TABLE `Clients` (
 
 LOCK TABLES `Clients` WRITE;
 /*!40000 ALTER TABLE `Clients` DISABLE KEYS */;
-INSERT INTO `Clients` VALUES (1,'Will Christie','WTC',39.7555,-105.221),(2,'Paul Laliberte','PRKL',39.7392,-104.99),(3,'Kylee Budai','K.B',30.015,-105.271),(4,'Nicholas Johnston','NIJO',39.9205,-105.087),(5,'Bill Christie','BTC',39.8028,-105.088);
+INSERT INTO `Clients` VALUES (1,'Will Christie','WTC',39.7555,-105.221),(2,'Paul Laliberte','PRKL',39.7392,-104.99),(3,'Kylee Budai','KMB',30.015,-105.271),(4,'Nicholas Johnston','NJJ',39.9205,-105.087),(5,'Bill Christie','BTC',39.8028,-105.088);
 /*!40000 ALTER TABLE `Clients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,7 +54,7 @@ CREATE TABLE `Drones` (
   `Status` int(1) NOT NULL,
   `Details` varchar(128) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=MyISAM AUTO_INCREMENT=111119 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=111120 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,7 +63,7 @@ CREATE TABLE `Drones` (
 
 LOCK TABLES `Drones` WRITE;
 /*!40000 ALTER TABLE `Drones` DISABLE KEYS */;
-INSERT INTO `Drones` VALUES (111111,1,'in transit'),(111113,1,'in transit'),(111114,1,'deliver complete'),(111115,1,'delivery complete'),(111116,1,'in transit'),(111117,1,'in transit'),(111118,0,'returning');
+INSERT INTO `Drones` VALUES (111111,1,'In Transit'),(111113,1,'In Transit'),(111114,0,'Returning to Base'),(111115,0,'Returning to Base'),(111116,1,'In Transit'),(111117,1,'In Transit'),(111118,0,'Returning to Base'),(111119,2,'Offline');
 /*!40000 ALTER TABLE `Drones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -78,7 +78,7 @@ CREATE TABLE `OrderStatus` (
   `Status` int(1) NOT NULL AUTO_INCREMENT,
   `Description` varchar(128) NOT NULL,
   PRIMARY KEY (`Status`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -87,7 +87,7 @@ CREATE TABLE `OrderStatus` (
 
 LOCK TABLES `OrderStatus` WRITE;
 /*!40000 ALTER TABLE `OrderStatus` DISABLE KEYS */;
-INSERT INTO `OrderStatus` VALUES (1,'in transit'),(2,'delivered');
+INSERT INTO `OrderStatus` VALUES (8,'processing'),(1,'in transit'),(2,'delivered');
 /*!40000 ALTER TABLE `OrderStatus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -129,4 +129,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-16 13:17:12
+-- Dump completed on 2016-06-16 13:51:06
