@@ -13,8 +13,8 @@ PRIMARY KEY (`Id`)
 INSERT INTO `Clients` (`Id`, `Name`, `Business`, `SenderLat`, `SenderLong` ) VALUES
 (01, 'Will Christie', 'WTC', 39.7555, -105.2211),
 (02, 'Paul Laliberte', 'PRKL', 39.7392, -104.9903),
-(03, 'Kylee Budai', 'K.B', 30.0150, -105.2705),
-(04, 'Nicholas Johnston', 'NIJO', 39.9205, -105.0867),
+(03, 'Kylee Budai', 'KMB', 30.0150, -105.2705),
+(04, 'Nicholas Johnston', 'NJJ', 39.9205, -105.0867),
 (05, 'Bill Christie', 'BTC', 39.8028, -105.0875);
 
 CREATE TABLE IF NOT EXISTS `Orders` (
