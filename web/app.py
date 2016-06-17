@@ -14,7 +14,10 @@ bootstrap = Bootstrap(app)
 @app.route('/')
 def home():
     return render_template('home.html')
-    print ("Hello")
+
+@app.route('/login')
+def login():
+   return render_template('login.html')
 
 @app.route('/sampleHTML2')
 def another_page():
