@@ -15,12 +15,19 @@
 	<div id="map"></div>
     	<script>
       		function initMap() {
-        		var mapDiv = document.getElementById('map');
-        		var map = new google.maps.Map(mapDiv, {
-          		center: {lat: 44.540, lng: -78.546},
-          		zoom: 8
-        		});
-     		 }
+        		var myLatLng = {lat:39.7555, lng:-105.2211};
+			
+			var map = new google.maps.Map(document.getElementById('map'), {
+				zoom: 8,
+				center: myLatLng
+			});
+			
+			var marker = new google.maps.Marker({
+				position: myLatLng,
+				map: map,
+				title: 'Current Drone Position'
+			});
+		}
     	</script>
     	<script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
         async defer></script>
