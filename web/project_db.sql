@@ -4,18 +4,19 @@ USE project_db;
 CREATE TABLE IF NOT EXISTS `Clients` (
 `Id` int(2) NOT NULL auto_increment,
 `Name` varchar(40) NOT NULL,
+`Password` varchar(20) NOT NULL,
 `Business` varchar(40) NOT NULL,
 `SenderLat` float NOT NULL,
 `SenderLong` float NOT NULL,
 PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
-INSERT INTO `Clients` (`Id`, `Name`, `Business`, `SenderLat`, `SenderLong` ) VALUES
-(01, 'Will Christie', 'WTC', 39.7555, -105.2211),
-(02, 'Paul Laliberte', 'PRKL', 39.7392, -104.9903),
-(03, 'Kylee Budai', 'KMB', 30.0150, -105.2705),
-(04, 'Nicholas Johnston', 'NJJ', 39.9205, -105.0867),
-(05, 'Bill Christie', 'BTC', 39.8028, -105.0875);
+INSERT INTO `Clients` (`Id`, `Name`, `Password`, `Business`, `SenderLat`, `SenderLong` ) VALUES
+(01, 'Will Christie', 'password', 'WTC', 39.7555, -105.2211),
+(02, 'Paul Laliberte', 'password', 'PRKL', 39.7392, -104.9903),
+(03, 'Kylee Budai', 'password', 'KMB', 30.0150, -105.2705),
+(04, 'Nicholas Johnston', 'password', 'NJJ', 39.9205, -105.0867),
+(05, 'Bill Christie', 'password','BTC', 39.8028, -105.0875);
 
 CREATE TABLE IF NOT EXISTS `Orders` (
 `OrderId` int(6) NOT NULL auto_increment,
