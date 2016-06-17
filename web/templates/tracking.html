@@ -22,10 +22,16 @@
 				center: myLatLng
 			});
 			
+			var image = {
+				url: 'https://cdn2.iconfinder.com/data/icons/modern-future-technology/128/drone-128.png',
+				scaledSize: new google.maps.Size(20,20)
+			};
+
 			var marker = new google.maps.Marker({
 				position: myLatLng,
 				map: map,
-				title: 'Current Drone Position'
+				title: 'Current Drone Position',
+				icon: image
 			});
 		}
     	</script>
