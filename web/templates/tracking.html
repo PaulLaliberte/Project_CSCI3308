@@ -3,12 +3,38 @@
         <title>Tracking</title>
         <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
         <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
+	<style>
+      		#map {
+        		width: 500px;
+        		height: 400px;
+     		 }
+   	 </style>
     </head>
     <body>
+	<h2>Drone Tracking Page</h2>
+	<div id="map"></div>
+    	<script>
+      		function initMap() {
+        		var mapDiv = document.getElementById('map');
+        		var map = new google.maps.Map(mapDiv, {
+          		center: {lat: 44.540, lng: -78.546},
+          		zoom: 8
+        		});
+     		 }
+    	</script>
+    	<script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+        async defer></script>
+	<div class="tracking">
+		<form>
+			<h3>Enter information to see the drone location</h3>
+			Tracking number:<br>
+			<input type="text" name="tracking number">
+			<input type="submit" name="Submit">
+		</form>
+	</div>
         <div class="container">
-            <h1>Tracking Page.</h2>
-            <br>
-            <p>Click <a href="/">here</a> to go home.</p>
+        	<p>Click <a href="/">here</a> to go home.</p>
         <div>
     </body>
 <html>
+
