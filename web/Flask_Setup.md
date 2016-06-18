@@ -26,13 +26,13 @@ press control-C from the command line.
 
 Need to <pip install flask-sqlalchemy> to make connection work properly.
 
-To try the connection with alchemy follow these directions (make sure you are in the same directory as app.py):
-<python
+To try the connection with alchemy follow these directions in the terminal (make sure you are in the same directory as app.py):
+python
 from app import [Clients or Drones or other class titles]>
 drones = [Drones].query.all()
 
 for titles in drone:
-	print(titles.[status or details])>
+	print(titles.[status or details])
 		
 
 NOTE: Line 11, app.config...'mysql://paul:[password]@localhost... the [password] is where you enter your password to run the database. Ideally, we would be more careful about database usernames and passwords in a final submission.
