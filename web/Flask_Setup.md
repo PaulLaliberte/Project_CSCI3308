@@ -24,7 +24,7 @@ press control-C from the command line.
 
 **SQL SETUP***
 
-Need to <pip install flask-mysqldb> to make connection work properly.
+Need to <pip install flask-sqlalchemy> to make connection work properly.
 
 
 
