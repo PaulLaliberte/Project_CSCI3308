@@ -22,6 +22,10 @@ app.py is where we connect/direct our static and template files.
 To start the webserver: `<python app.py>` and copy the url from terminal (it will be a local host). To shutdown server
 press control-C from the command line.
 
+**SQL SETUP***
+
+Need to <pip install flask-mysqldb> to make connection work properly.
+
 
 
 **Other Notes:**
