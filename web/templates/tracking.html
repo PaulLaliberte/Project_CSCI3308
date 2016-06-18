@@ -17,11 +17,11 @@
 			
       		function initMap() {
 				
-				var droneLatLng = {lat:39.7555, lng:-105.2211};
+				var droneLatLng = ['Delivery Location', 39.7555, -105.2211];
 			
 				var map = new google.maps.Map(document.getElementById('map'), {
-					zoom: 12,
-					center: droneLatLng
+					zoom: 9,
+					center: {lat: droneLatLng[1], lng: droneLatLng[2]}
 				});
 				
 				var drone = {
@@ -30,10 +30,10 @@
 				};
 				
 				var marker = new google.maps.Marker({
-					position: droneLatLng,
+					position: {lat: droneLatLng[1], lng: droneLatLng[2]},
 					map: map,
 					icon: drone,
-					title: 'Drone Position',
+					title: droneLatLng[0]
 				});
 				
 				setMarkers(map);
@@ -52,6 +52,7 @@
 				};
 				for (var i = 0; i < coords.length; i++) {
 					var coord = coords[i];
+					
 					var marker = new google.maps.Marker({
 						position: {lat: coord[1], lng: coord[2]},
 						map: map,
@@ -59,6 +60,7 @@
 						title: coord[0],
 						zIndex: coord[3]
 					});
+				
 				}
 			}
 		
