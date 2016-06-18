@@ -5,8 +5,8 @@
         <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
 	<style>
       		#map {
-        		width: 500px;
-        		height: 400px;
+        		width: 600px;
+        		height: 500px;
      		 }
    	 </style>
     </head>
@@ -14,44 +14,54 @@
 	<h2>Drone Tracking Page</h2>
 	<div id="map"></div>
     	<script>
+			
       		function initMap() {
-			var droneLatLng = {lat:39.7555, lng:-105.2211};
-
-			var recLatLng = {lat:39.7047, lng:-105.0814};
-
-			var sendLatLng = {lat:40.0150, lng:-105.2705};
+				
+				var droneLatLng = {lat:39.7555, lng:-105.2211};
 			
-			var map = new google.maps.Map(document.getElementById('map'), {
-				zoom: 12,
-				center: droneLatLng
-			});
-			
-			var image = {
+				var map = new google.maps.Map(document.getElementById('map'), {
+					zoom: 12,
+					center: droneLatLng
+				});
+				
+				var drone = {
 				url:'https://cdn2.iconfinder.com/data/icons/modern-future-technology/128/drone-128.png',
 				scaledSize: new google.maps.Size(25,25)
-			};
-
-			var dMarker = new google.maps.Marker({
-				position: droneLatLng,
-				map: map,
-				title: 'Current Drone Position',
-				icon: image
-			});
+				};
+				
+				var marker = new google.maps.Marker({
+					position: droneLatLng,
+					map: map,
+					icon: drone,
+					title: 'Drone Position',
+				});
+				
+				setMarkers(map);
+			}	
 			
-			var rMarker = new google.maps.Marker({
-				position: recLatLng,
-				map: map,
-				title: 'Reciever Location'
-			});
-
-			var sMarker = new google.maps.Marker({
-				position: sendLatLng,
-				map: map,
-				title: 'Sender Location'
-			});
-			
-			
-		}
+			var coords = [
+				['Sender Location', 40.0150, -105.2705, 2],
+				['Reciever Location', 39.7047, -105.0814, 3] 
+			];
+				
+			function setMarkers(map) {
+				
+				var image = {
+					url: 'https://cdn1.iconfinder.com/data/icons/buildings-landmarks-set-2/96/Post-Office-512.png',
+					scaledSize: new google.maps.Size(25,25)
+				};
+				for (var i = 0; i < coords.length; i++) {
+					var coord = coords[i];
+					var marker = new google.maps.Marker({
+						position: {lat: coord[1], lng: coord[2]},
+						map: map,
+						icon: image,
+						title: coord[0],
+						zIndex: coord[3]
+					});
+				}
+			}
+		
     	</script>
     	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9yKxAbb4cH2ZJ_D3EWp3sG-DHJLxLURI&callback=initMap"
         async defer></script>
