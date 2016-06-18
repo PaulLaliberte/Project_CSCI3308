@@ -11,6 +11,7 @@ bootstrap = Bootstrap(app)
 
 
 #SQL-database-tables connection
+#mySQL does not like root access, create a user. Make sure to grant access to db
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://paul:paul@localhost/project_db'
 db = SQLAlchemy(app)
 
