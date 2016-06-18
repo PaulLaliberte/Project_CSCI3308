@@ -37,8 +37,6 @@ You can edit the bootstrap.html file in **templates** to add/change how the navi
 
 Implementing a database: http://flask.pocoo.org/docs/0.11/tutorial/dbcon/
 
-
-
-
+Need to install an extension to allow you to access a mysql database (Run command 'pip install flask-mysql')  If this generates an error, do 'sudo apt-get install libmysqlclient-dev'.  If you still get an error, add 'sudo' to the beginning of the first command.
 
 

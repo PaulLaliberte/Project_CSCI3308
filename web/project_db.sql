@@ -1,18 +1,22 @@
+CREATE DATABASE IF NOT EXISTS project_db;
+USE project_db;
+
 CREATE TABLE IF NOT EXISTS `Clients` (
 `Id` int(2) NOT NULL auto_increment,
 `Name` varchar(40) NOT NULL,
+`Password` varchar(20) NOT NULL,
 `Business` varchar(40) NOT NULL,
 `SenderLat` float NOT NULL,
 `SenderLong` float NOT NULL,
 PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
-INSERT INTO `Clients` (`Id`, `Name`, `Business`, `SenderLat`, `SenderLong` ) VALUES
-(01, 'Will Christie', 'WTC', 39.7555, -105.2211),
-(02, 'Paul Laliberte', 'PRKL', 39.7392, -104.9903),
-(03, 'Kylee Budai', 'K.B', 30.0150, -105.2705),
-(04, 'Nicholas Johnston', 'NIJO', 39.9205, -105.0867),
-(05, 'Bill Christie', 'BTC', 39.8028, -105.0875);
+INSERT INTO `Clients` (`Id`, `Name`, `Password`, `Business`, `SenderLat`, `SenderLong` ) VALUES
+(01, 'Will Christie', 'password', 'WTC', 39.7555, -105.2211),
+(02, 'Paul Laliberte', 'password', 'PRKL', 39.7392, -104.9903),
+(03, 'Kylee Budai', 'password', 'KMB', 30.0150, -105.2705),
+(04, 'Nicholas Johnston', 'password', 'NJJ', 39.9205, -105.0867),
+(05, 'Bill Christie', 'password','BTC', 39.8028, -105.0875);
 
 CREATE TABLE IF NOT EXISTS `Orders` (
 `OrderId` int(6) NOT NULL auto_increment,
@@ -42,13 +46,14 @@ PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ; 
 
 INSERT INTO `Drones` (`Id`, `Status`, `Details`) VALUES
-(111111, 1, 'in transit'),
-(111113, 1, 'in transit'),
-(111114, 1, 'deliver complete'),
-(111115, 1, 'delivery complete'),
-(111116, 1, 'in transit'),
-(111117, 1, 'in transit'),
-(111118, 0, 'returning');
+(111111, 1, 'In Transit'),
+(111113, 1, 'In Transit'),
+(111114, 0, 'Returning to Base'),
+(111115, 0, 'Returning to Base'),
+(111116, 1, 'In Transit'),
+(111117, 1, 'In Transit'),
+(111118, 0, 'Returning to Base'),
+(111119, 2, 'Offline');
 
 
 CREATE TABLE IF NOT EXISTS `OrderStatus` (
@@ -58,5 +63,6 @@ PRIMARY KEY (`Status`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 INSERT INTO `OrderStatus` (`Status`, `Description`) VALUES
+(0, 'processing'),
 (1, 'in transit'),
 (2, 'delivered');
