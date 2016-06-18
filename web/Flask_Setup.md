@@ -24,7 +24,7 @@ press control-C from the command line.
 
 **SQL SETUP**
   
-Need to <pip install flask-sqlalchemy> to make connection work properly.
+Need to `<pip install flask-sqlalchemy>` to make connection work properly.
   
 To try the connection with alchemy follow these directions in the terminal (make sure you are in the same directory as app.py):  
 python  
