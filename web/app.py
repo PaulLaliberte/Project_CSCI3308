@@ -45,8 +45,6 @@ class Orders(db.Model):
     receiverLong = db.Column('RecieverLong', db.Numeric)
     status_ = db.Column('Status', db.Integer)
 
-
-
 #Use decorator "@" and route to url
 #More on decorators: http://flask.pocoo.org/docs/0.11/patterns/viewdecorators/
 @app.route('/')
@@ -55,13 +53,11 @@ def home():
 
 @app.route('/register')
 def login():
-     _name = request.form("name")
-     _password = request.form("password")
      return render_template('register.html')
 
-@app.route('/sampleHTML2')
+@app.route('/clientTracking')
 def another_page():
-    return render_template('sampleHTML2.html')
+    return render_template('clientTracking.html')
 
 @app.route('/tracking')
 def tracking_page():
