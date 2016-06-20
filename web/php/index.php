@@ -64,10 +64,10 @@
 						</div>
 					</div>
 				<div class="form-group ">
-               <a class="btn btn-primary btn-lg btn-block" role="button" href="/clientTracking">Login</a>
+               <a class="btn btn-primary btn-lg btn-block" role="button" href="/clientTracking.php">Login</a>
                   </div>
                   <div class="login-register">
-                        <li> <a href="/register">Register</a></li>
+                        <li> <a href="/register.php">Register</a></li>
                   </div>
                </form>	
             </div>
