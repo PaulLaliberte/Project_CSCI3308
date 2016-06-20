@@ -20,7 +20,7 @@
 				var droneLatLng = ['Delivery Location', 39.7555, -105.2211];
 			
 				var map = new google.maps.Map(document.getElementById('map'), {
-					zoom: 9,
+					zoom: 15,
 					center: {lat: droneLatLng[1], lng: droneLatLng[2]}
 				});
 				
@@ -41,7 +41,7 @@
 			
 			var coords = [
 				['Sender Location', 40.0150, -105.2705, 2],
-				['Reciever Location', 39.7047, -105.0814, 3] 
+				['Reciever Location', 39.6536, -105.1911, 3] 
 			];
 				
 			function setMarkers(map) {
@@ -50,6 +50,9 @@
 					url: 'https://cdn1.iconfinder.com/data/icons/buildings-landmarks-set-2/96/Post-Office-512.png',
 					scaledSize: new google.maps.Size(25,25)
 				};
+				
+				var bounds = new google.maps.LatLngBounds();
+				
 				for (var i = 0; i < coords.length; i++) {
 					var coord = coords[i];
 					
@@ -60,9 +63,11 @@
 						title: coord[0],
 						zIndex: coord[3]
 					});
-				
+					bounds.extend(marker.position);
 				}
+				map.fitBounds(bounds);
 			}
+
 		
     	</script>
     	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9yKxAbb4cH2ZJ_D3EWp3sG-DHJLxLURI&callback=initMap"
