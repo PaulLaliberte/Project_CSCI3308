@@ -12,13 +12,14 @@ bootstrap = Bootstrap(app)
 
 #SQL-database-tables connection
 #mySQL does not like root access, create a user. Make sure to grant access to db
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost/project_db'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://paul:paul@localhost/project_db'
 db = SQLAlchemy(app)
 
 class Clients(db.Model):
     __tablename__ = 'Clients'
     id = db.Column('Id', db.Integer, primary_key = True)
-    name = db.Column('Name', db.Unicode)
+    name = db.Column('Name', db.Unicode)  
     password = db.Column('Password', db.Unicode)
     business = db.Column('Business', db.Unicode)
     latitude = db.Column('SenderLat', db.Numeric)
