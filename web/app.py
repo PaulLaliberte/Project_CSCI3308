@@ -30,6 +30,7 @@ class Drones(db.Model):
     id = db.Column('Id', db.Integer, primary_key = True)
     status = db.Column('Status', db.Integer)
     details = db.Column('Details', db.Unicode)
+    rentee = db.Column('Renter',db.Integer)
 
 class OrderStatus(db.Model):
     __tablename__ = 'OrderStatus'
