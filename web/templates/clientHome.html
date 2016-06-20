@@ -22,14 +22,16 @@
 			<th class="tg-yw4l">Order status</th>
 			<th class="tg-yw4l">Notifications</th>
 			</tr>
+			{% for x in loopdata %}
 			<tr>
-			<td class="tg-yw4l"></td>
+			<td class="tg-yw4l">{{ x }}</td>
 			<td class="tg-yw4l"></td>
 			<td class="tg-yw4l"></td>
 			<td class="tg-yw4l"></td>
 			<td class="tg-yw4l"></td>
 			<td class="tg-yw4l"></td>
 			</tr>
+			{% endfor %}
 			</table>
             <p>Click <a href="/">here</a> to go home.</p>
         </div>

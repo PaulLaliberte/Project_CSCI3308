@@ -66,10 +66,10 @@ def tracking_page():
 
 @app.route('/clientHome')
 def client_home_page():
-    return render_template('clientHome.html')
+    loopdata = ['111111','111113','111114', '111115','111116','1111178','111119']
+    return render_template('clientHome.html',loopdata=loopdata)
 
 #start server
 if __name__ == '__main__':
     app.run(debug=True)
-
 
