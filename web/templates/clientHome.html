@@ -22,10 +22,10 @@
 			<th class="tg-yw4l">Order status</th>
 			<th class="tg-yw4l">Notifications</th>
 			</tr>
-			{% for x in loopdata %}
+			{% for label in drones %}
 			<tr>
-			<td class="tg-yw4l">{{ x }}</td>
-			<td class="tg-yw4l"></td>
+			<td class="tg-yw4l">{{ label.id }}</td>
+			<td class="tg-yw4l">{{ label.status  }}</td>
 			<td class="tg-yw4l"></td>
 			<td class="tg-yw4l"></td>
 			<td class="tg-yw4l"></td>
