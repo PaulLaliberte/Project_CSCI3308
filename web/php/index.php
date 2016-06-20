@@ -22,7 +22,7 @@
     </div>
     <div class="navbar-collapse collapse">
 	<ul class="nav navbar-nav">
-	   <li><a href="/tracking">Tracking</a></li>
+	   <li><a href="/tracking.php">Tracking</a></li>
 	</ul>
     </div>
     </div>
