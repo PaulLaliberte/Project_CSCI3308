@@ -28,7 +28,9 @@ if ($result->num_rows > 0) {
 		$senderCoordinates[1] = $row["SenderLong"];
 	}
 } else {
-	echo "Database Error, please contact the developers.";
+	echo 'Database Error, please contact the developers or click the link below to make sure that OrderId is set in the URL.<br>
+	<a href="?OrderId=121114">clientTracking.php?OrderId=121114</a><br><br>
+	';
 }
 
 //get reciever location
@@ -123,11 +125,11 @@ if ($result->num_rows > 0) {
     	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9yKxAbb4cH2ZJ_D3EWp3sG-DHJLxLURI&callback=initMap"
         async defer></script>
 	<div class="tracking">
-		<form>
+		<form action="" method="get">
 			<h3>Enter information to see the drone location</h3>
 			Tracking number:<br>
-			<input type="text" name="tracking number">
-			<input type="submit" name="Submit">
+			<input type="text" name="OrderId">
+			<input type="submit">
 		</form>
 	</div>
         <div class="container">
