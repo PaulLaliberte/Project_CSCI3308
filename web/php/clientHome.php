@@ -1,4 +1,16 @@
+<?php
+$servername = "localhost";
+$username = "paul";
+$password = "paul";
+$dbname = "project_db";
 
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
 <html>
     <head>
         <title>Client Homepage</title>
@@ -23,81 +35,33 @@
 			<th class="tg-yw4l">Order status</th>
 			<th class="tg-yw4l">Notifications</th>
 			</tr>
-			
-			<tr>
-			<td class="tg-yw4l">111111</td>
-			<td class="tg-yw4l">1</td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			</tr>
-			
-			<tr>
-			<td class="tg-yw4l">111113</td>
-			<td class="tg-yw4l">1</td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			</tr>
-			
-			<tr>
-			<td class="tg-yw4l">111114</td>
-			<td class="tg-yw4l">0</td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			</tr>
-			
-			<tr>
-			<td class="tg-yw4l">111115</td>
-			<td class="tg-yw4l">0</td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			</tr>
-			
-			<tr>
-			<td class="tg-yw4l">111116</td>
-			<td class="tg-yw4l">1</td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			</tr>
-			
-			<tr>
-			<td class="tg-yw4l">111117</td>
-			<td class="tg-yw4l">1</td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			</tr>
-			
-			<tr>
-			<td class="tg-yw4l">111118</td>
-			<td class="tg-yw4l">0</td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			</tr>
-			
-			<tr>
-			<td class="tg-yw4l">111119</td>
-			<td class="tg-yw4l">2</td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			</tr>
-			
+			<?php
+			$sql = "SELECT id,status FROM Drones";
+			$result = $conn->query($sql);
+
+			if ($result->num_rows > 0) {
+				// output data of each row
+				while($row = $result->fetch_assoc()) {
+					//echo "id: " . $row["id"]. " - status: " . $row["status"]. "<br>";
+					echo '<tr>
+					<td class="tg-yw4l">'.$row["id"].'</td>
+					<td class="tg-yw4l">'.$row["status"].'</td>
+					<td class="tg-yw4l"></td>
+					<td class="tg-yw4l"></td>
+					<td class="tg-yw4l"></td>
+					<td class="tg-yw4l">'.$row["Details"].'</td>
+					</tr>';
+						
+				}
+			} else {
+				echo "0 results";
+			}
+			?>			
 			</table>
             <p>Click <a href="/">here</a> to go home.</p>
         </div>
     </body>
 <html>
+<?php
+$conn->close();
+?>
