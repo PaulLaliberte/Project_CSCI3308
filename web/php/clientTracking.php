@@ -1,3 +1,50 @@
+<?php
+
+$senderCoordinates = array(0,0);  // order lat, lon
+$recieverCoordinates = array(0,0);
+
+$orderId = $_GET["OrderId"];
+
+$servername = "localhost";
+$username = "paul";
+$password = "paul";
+$dbname = "project_db";
+
+// Create connection
+// It is important to close the connection using the three lines at the end of this file for security reasons.
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+//get sender location
+$sql = "SELECT SenderLat,SenderLong from Clients WHERE Id = (SELECT ClientId FROM Orders WHERE OrderID=".$orderId.");";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+	// output data of each row
+	while($row = $result->fetch_assoc()) {
+		$senderCoordinates[0] = $row["SenderLat"];
+		$senderCoordinates[1] = $row["SenderLong"];
+	}
+} else {
+	echo "Database Error, please contact the developers.";
+}
+
+//get reciever location
+$sql = "SELECT RecieverLat,RecieverLong FROM Orders WHERE OrderID=".$orderId.";";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+	// output data of each row
+	while($row = $result->fetch_assoc()) {
+		$recieverCoordinates[0] = $row["RecieverLat"];
+		$recieverCoordinates[1] = $row["RecieverLong"];
+	}
+} else {
+	echo "Database Error, please contact the developers.";
+}
+?>
 <html>
     <head>
         <title>Tracking</title>
@@ -17,7 +64,10 @@
 			
       		function initMap() {
 				
-				var droneLatLng = ['Delivery Location', 39.7555, -105.2211];
+				var droneLatLng = ['Delivery Location', <?php 
+				//echo $senderCoordinates[0].", ".$senderCoordinates[1];
+				echo "39.7555, -105.2211"   
+				?>];
 			
 				var map = new google.maps.Map(document.getElementById('map'), {
 					zoom: 9,
@@ -39,9 +89,14 @@
 				setMarkers(map);
 			}	
 			
+			//var coords = [
+			//	['Sender Location', 40.0150, -105.2705, 2],
+			//	['Reciever Location', 39.7047, -105.0814, 3] 
+			//];
+			
 			var coords = [
-				['Sender Location', 40.0150, -105.2705, 2],
-				['Reciever Location', 39.7047, -105.0814, 3] 
+				['Sender Location', <?php echo $senderCoordinates[0].", ".$senderCoordinates[1]; ?>, 2],
+				['Reciever Location', <?php echo $recieverCoordinates[0].", ".$recieverCoordinates[1]; ?>, 3] 
 			];
 				
 			function setMarkers(map) {
@@ -80,4 +135,6 @@
         <div>
     </body>
 <html>
-
+<?php
+$conn->close();
+?>
