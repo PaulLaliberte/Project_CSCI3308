@@ -5,6 +5,7 @@ $password = "paul";
 $dbname = "project_db";
 
 // Create connection
+// It is important to close the connection using the three lines at the end of this file for security reasons.
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
@@ -36,7 +37,7 @@ if ($conn->connect_error) {
 			<th class="tg-yw4l">Notifications</th>
 			</tr>
 			<?php
-			$sql = "SELECT id,status FROM Drones";
+			$sql = "select Drones.Id,Drones.status,Drones.Details,Orders.OrderId,Orders.Status FROM Drones LEFT JOIN Orders ON Drones.Id=Orders.DroneId";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
@@ -44,17 +45,17 @@ if ($conn->connect_error) {
 				while($row = $result->fetch_assoc()) {
 					//echo "id: " . $row["id"]. " - status: " . $row["status"]. "<br>";
 					echo '<tr>
-					<td class="tg-yw4l">'.$row["id"].'</td>
+					<td class="tg-yw4l">'.$row["Id"].'</td>
 					<td class="tg-yw4l">'.$row["status"].'</td>
-					<td class="tg-yw4l"></td>
-					<td class="tg-yw4l"></td>
-					<td class="tg-yw4l"></td>
+					<td class="tg-yw4l">'.$row["OrderId"].'</td>
+					<td class="tg-yw4l">'.$row["OrderId"].'</td>
+					<td class="tg-yw4l">'.$row["Status"].'</td>
 					<td class="tg-yw4l">'.$row["Details"].'</td>
 					</tr>';
 						
 				}
 			} else {
-				echo "0 results";
+				echo "Database Error, please contact the developers.";
 			}
 			?>			
 			</table>
