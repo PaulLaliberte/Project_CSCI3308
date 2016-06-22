@@ -154,6 +154,8 @@ if(isset($_GET['OrderId'])) {
 					url: 'https://cdn1.iconfinder.com/data/icons/buildings-landmarks-set-2/96/Post-Office-512.png',
 					scaledSize: new google.maps.Size(25,25)
 				};
+				
+				var bounds = new google.maps.LatLngBounds();
 
 				for (var i = 0; i < coords.length; i++) {
 					var coord = coords[i];
@@ -165,8 +167,10 @@ if(isset($_GET['OrderId'])) {
 						title: coord[0],
 						zIndex: coord[3]
 					});
-				
+					
+					bounds.extend(marker.position);				
 				}
+				map.fitBounds(bounds);
 			}
 		
     	</script>
