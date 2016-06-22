@@ -62,6 +62,20 @@ if(isset($_GET['OrderId'])) {
 	} else {
 		echo "Database Error, please contact the developers.";
 	}
+		
+	//calculate ETA:
+	$lon1 = $droneCoordinates[1];
+	$lon2 = $recieverCoordinates[1];
+	$lat1 = $droneCoordinates[0];
+	$lat2 = $recieverCoordinates[0];
+	$theta = $lon1 - $lon2;
+  	$dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+  	$dist = acos($dist);
+ 	$dist = rad2deg($dist);
+  	$miles = $dist * 60 * 1.1515;
+	$time = $miles / 44.7387
+
+
 ?>
 <html>
     <head>
@@ -106,14 +120,25 @@ if(isset($_GET['OrderId'])) {
 				});
 				
 				// info window for drone marker
+				
 				var contentstr = '<div id = "content">' + 
 					'<div id="deliveryInfo">' + 
 					'</div>' + 
 					'<h1 id="firstHeading" class="firstHeading">Delivery Info</h1>' +  
-					'<p><b>Order ID:</b> placeholder</p>' +
+					'<p><b>Order ID:</b>' + '<?php echo $orderId?>' + '</p>' +
 					'<b>Current Status:</b> in transit</p>' +
-					'<b>Flight Speed:</b> 20 meters per second (40 miles per hour)</p>' + 
-					'<b>Delivery ETA:</b> placeholder</p>' + 
+					'<b>Flight Speed:</b> 20 meters per second (45 miles per hour)</p>' + 
+					'<b>Delivery ETA: </b>' + '<?php 
+						if (time < 1) {
+							$time = intval($time * 60);
+							echo "estimated $time minutes";
+						}else {
+							$seconds = $time * 3600;
+							$hours = floor(($seconds % 86400) / 3600);
+							$minutes = floor(($seconds % 3600) / 60);
+							echo "estimated $time hours $minutes minutes";
+						}
+					?>' + ' until arrival</p>' +  
 					'</div>' + 
 					'</div>';
 
