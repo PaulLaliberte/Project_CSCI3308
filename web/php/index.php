@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/styling/index_styling.css" type="text/css"/> 
   </head>
   <body>
-<div class = "navbar navbar-inverse navbar-custom1" role="navigation">
+<div class = "navbar navbar-inverse navbar-custom" role="navigation">
   <div class="container">
     <div class="navbar-header">
 	<button type="button" class="navbar-toggle"
@@ -20,7 +20,7 @@
 	</button>
 	<a class="navbar-brand" href="/">Home</a>
     </div>
-    <div class="navbar-collapse collapse">
+    <div class="navbar-collapse">
 	<ul class="nav navbar-nav">
 	   <li><a href="/tracking.php">Tracking</a></li>
 	</ul>
