@@ -1,8 +1,13 @@
-{% extends "bootstrap/base.html" %}
-
-{% block title %} UAS{% endblock %}
-
-{% block navbar %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> UAS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    
 <div class = "navbar navbar-inverse" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -17,15 +22,14 @@
     </div>
     <div class="navbar-collapse collapse">
 	<ul class="nav navbar-nav">
-	   <li><a href="/tracking">Tracking</a></li>
+	   <li><a href="/tracking.php">Tracking</a></li>
 	</ul>
     </div>
     </div>
   </div>
 </div>
-{% endblock %}
 
-{% block content %}
+    
 <div class="container">
    <div class="page-header">
      <h1>Welcome to TRACKING</h1>
@@ -60,10 +64,10 @@
 						</div>
 					</div>
 				<div class="form-group ">
-               <a class="btn btn-primary btn-lg btn-block" role="button" href="/clientTracking">Login</a>
+               <a class="btn btn-primary btn-lg btn-block" role="button" href="/clientTracking.php">Login</a>
                   </div>
                   <div class="login-register">
-                        <li> <a href="/register">Register</a></li>
+                        <li> <a href="/register.php">Register</a></li>
                   </div>
                </form>	
             </div>
@@ -72,4 +76,11 @@
 	</div>
     </body>
 </div>
-{% endblock %}
+
+
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

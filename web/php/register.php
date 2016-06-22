@@ -1,8 +1,14 @@
-{% extends "bootstrap/base.html" %}
 
-{% block title %} UAS{% endblock %}
-
-{% block navbar %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> UAS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    
 <div class = "navbar navbar-inverse" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -23,18 +29,13 @@
     </div>
   </div>
 </div>
-{% endblock %}
 
-{% block content %}
-<div class="container">
-   <div class="page-header">
-     <h1>Welcome to TRACKING</h1>
-   </div>
+    
 	<div class="container">
 		<div class="row main">
          <div class="panel-heading">
             <div class="panel-title text-center">
-               <h1 class="title">Please Login</h1>
+               <h1 class="title">Register</h1>
                <hr />
             </div>
          <div>
@@ -49,7 +50,24 @@
 							</div>
 						</div>
 					</div>
-
+					<div class="form-group">
+						<label for="business" class="cols-sm-2 control-label">Business</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="business" id="business" placeholder="Business Title"></input>
+							</div>
+						</div>
+					</div>
+			   	<div class="form-group">
+						<label for="address" class="cols-sm-2 control-label">Address</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="address" id="address" placeholder="Business Address"></input>
+							</div>
+						</div>
+					</div>
 					<div class="form-group">
 						<label for="password" class="cols-sm-2 control-label">Password</label>
 						<div class="cols-sm-10">
@@ -60,11 +78,9 @@
 						</div>
 					</div>
 				<div class="form-group ">
-               <a class="btn btn-primary btn-lg btn-block" role="button" href="/clientTracking">Login</a>
+               <a class="btn btn-primary btn-lg btn-block" role="button" href="/">Register</a>
                   </div>
-                  <div class="login-register">
-                        <li> <a href="/register">Register</a></li>
-                  </div>
+               
                </form>	
             </div>
 			</div>
@@ -72,4 +88,11 @@
 	</div>
     </body>
 </div>
-{% endblock %}
+
+
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

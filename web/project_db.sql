@@ -42,18 +42,19 @@ CREATE TABLE IF NOT EXISTS `Drones` (
 `Id` int(6) NOT NULL auto_increment,
 `Status` int(1) NOT NULL,
 `Details` varchar(128) NOT NULL,
+`Renter` int(2) NOT NULL,
 PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ; 
 
-INSERT INTO `Drones` (`Id`, `Status`, `Details`) VALUES
-(111111, 1, 'In Transit'),
-(111113, 1, 'In Transit'),
-(111114, 0, 'Returning to Base'),
-(111115, 0, 'Returning to Base'),
-(111116, 1, 'In Transit'),
-(111117, 1, 'In Transit'),
-(111118, 0, 'Returning to Base'),
-(111119, 2, 'Offline');
+INSERT INTO `Drones` (`Id`, `Status`, `Details`,`Renter`) VALUES
+(111111, 1, 'In Transit',01),
+(111113, 1, 'In Transit',03),
+(111114, 0, 'Returning to Base',02),
+(111115, 0, 'Returning to Base',05),
+(111116, 1, 'In Transit',01),
+(111117, 1, 'In Transit',02),
+(111118, 0, 'Returning to Base',03),
+(111119, 2, 'Offline',04);
 
 
 CREATE TABLE IF NOT EXISTS `OrderStatus` (
