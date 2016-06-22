@@ -32,7 +32,7 @@ if (!empty($_POST['user'])){
 <body>
 <div id="Log-in">
    <fieldset style="width:30%"><legend>Log-in here</legend>
-   <form method="POST" action="index.php">
+   <form method="POST" action="indextemp.php">
       User <br><input type="text" name="user" size="40"><br>
       Password <br><input type="password" name="pass" size="40"><br>
       <input id="button" type="submit" name="submit" value="Log In">
