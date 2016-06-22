@@ -14,7 +14,7 @@ PRIMARY KEY (`Id`)
 INSERT INTO `Clients` (`Id`, `Name`, `Password`, `Business`, `SenderLat`, `SenderLong` ) VALUES
 (01, 'Will Christie', 'password', 'WTC', 39.7555, -105.2211),
 (02, 'Paul Laliberte', 'password', 'PRKL', 39.7392, -104.9903),
-(03, 'Kylee Budai', 'password', 'KMB', 30.0150, -105.2705),
+(03, 'Kylee Budai', 'password', 'KMB', 39.0150, -105.2705),
 (04, 'Nicholas Johnston', 'password', 'NJJ', 39.9205, -105.0867),
 (05, 'Bill Christie', 'password','BTC', 39.8028, -105.0875);
 
@@ -27,17 +27,19 @@ CREATE TABLE IF NOT EXISTS `Orders` (
 `RecieverLong` float NOT NULL,
 `Status` int(1) NOT NULL,
 `TimeOut` varchar(25) NOT NULL,
+`DroneLat` float NOT NULL,
+`DroneLong` float NOT NULL,
 PRIMARY KEY (`OrderId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ; 
 
-INSERT INTO `Orders` (`OrderId`, `ClientId`, `DroneId`, `OrderTimestamp`, `RecieverLat`, `RecieverLong`, `Status`, `TimeOut`) VALUES
-(121112, 1, 111111, 2016061512, 39.8367, -105.0372, 1, 2016-06-23 11:55:30),
-(121113, 1, 111113, 2016061501, 39.9528, -105.1686, 1, 2016-06-25 12:00:00),
-(121114, 2, 111114, 2016052611, 39.9778, -105.1319, 2, 2016-06-15 23:00:13),
-(121115, 3, 111115, 2016042803, 39.9614, -105.5108, 2, 2016-06-17 00:01:30),
-(121116, 4, 111116, 2016061504, 39.0639, -108.5506, 1, 2016-06-23 10:36:14),
-(121117, 5, 111117, 2016061409, 40.0861, -105.9395, 1, 2016-06-23 09:27:55),
-(121118, 5, 111118, 2016061404, 37.9375, -107.8123, 2, 2016-06-17 09:26:13);
+INSERT INTO `Orders` (`OrderId`, `ClientId`, `DroneId`, `OrderTimestamp`, `RecieverLat`, `RecieverLong`, `Status`, `TimeOut`, `DroneLat`, `DroneLong`) VALUES
+(121112, 1, 111111, 2016061512, 39.8367, -105.0372, 1, 2016-06-23 11:55:30, 39.8028, -105.0875),
+(121113, 1, 111113, 2016061501, 39.9528, -105.1686, 1, 2016-06-25 12:00:00, 39.8028, -105.0875),
+(121114, 2, 111114, 2016052611, 39.9778, -105.1319, 2, 2016-06-15 23:00:13, 39.8367, -105.0372),
+(121115, 3, 111115, 2016042803, 39.9614, -105.5108, 2, 2016-06-17 00:01:30, 39.2547, -105.2269),
+(121116, 4, 111116, 2016061504, 39.0639, -108.5506, 1, 2016-06-23 10:36:14, 39.5505, -107.3248),
+(121117, 5, 111117, 2016061409, 40.0861, -105.9395, 1, 2016-06-23 09:27:55, 39.9450, -105.8172),
+(121118, 5, 111118, 2016061404, 37.9375, -107.8123, 2, 2016-06-17 09:26:13, 38.5458, -106.9253);
 
 CREATE TABLE IF NOT EXISTS `Drones` (
 `Id` int(6) NOT NULL auto_increment,
