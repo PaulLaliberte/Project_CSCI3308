@@ -131,23 +131,23 @@ if(isset($_GET['OrderId'])) {
 			
 			// set sender/reciever markers
 			var coords = [
-				['Sender Location', <?php echo $senderCoordinates[0].", ".$senderCoordinates[1]; ?>, 2],
-				['Reciever Location', <?php echo $recieverCoordinates[0].", ".$recieverCoordinates[1]; ?>, 3] 
+				['Sender Location', <?php echo $senderCoordinates[0].", ".$senderCoordinates[1]; ?>, 2, 'https://cdn1.iconfinder.com/data/icons/buildings-landmarks-set-2/96/Post-Office-512.png'],
+				['Reciever Location', <?php echo $recieverCoordinates[0].", ".$recieverCoordinates[1]; ?>, 3, 'http://simpleicon.com/wp-content/uploads/home-5.png'] 
 			];
 				
 			function setMarkers(map) {
 				
-				// custom sender/reciever markers
-				var image = {
-					url: 'https://cdn1.iconfinder.com/data/icons/buildings-landmarks-set-2/96/Post-Office-512.png',
-					scaledSize: new google.maps.Size(25,25)
-				};
-				
+				// custom sender/reciever markes;
 				var bounds = new google.maps.LatLngBounds();
 
 				for (var i = 0; i < coords.length; i++) {
 					var coord = coords[i];
-					
+
+					var image = {
+                                        url: coord[4],
+                                        scaledSize: new google.maps.Size(25,25)
+                                	};	
+
 					var marker = new google.maps.Marker({
 						position: {lat: coord[1], lng: coord[2]},
 						map: map,
