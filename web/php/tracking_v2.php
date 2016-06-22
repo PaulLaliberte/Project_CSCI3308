@@ -93,15 +93,18 @@ if(isset($_GET['OrderId'])) {
     	<script>
 			
       		function initMap() {
-	
+				
+				//set drone coordinates.
 				var droneLatLng = ['Delivery Location', <?php 
 				echo $droneCoordinates[0].", ".$droneCoordinates[1];?>];
 			
+				//initiate map
 				var map = new google.maps.Map(document.getElementById('map'), {
 					zoom: 9,
 					center: {lat: droneLatLng[1], lng: droneLatLng[2]}
 				});
 				
+				// custom drone marker
 				var drone = {
 				url:'https://cdn2.iconfinder.com/data/icons/modern-future-technology/128/drone-128.png',
 				scaledSize: new google.maps.Size(25,25)
@@ -114,15 +117,31 @@ if(isset($_GET['OrderId'])) {
 					title: droneLatLng[0]
 				});
 				
+				// info window for drone marker
+				var contentstr = '<div id = "content">' + 
+					'<div id="deliveryInfo">' + 
+					'</div>' + 
+					'<h1 id="firstHeading" class="firstHeading">Delivery Info</h1>' +  
+					'<p><b>Order ID:</b> placeholder</p>' +
+					'<b>Current Status:</b> in transit</p>' +
+					'<b>Flight Speed:</b> 20 meters per second (40 miles per hour)</p>' + 
+					'<b>Delivery ETA:</b> placeholder</p>' + 
+					'</div>' + 
+					'</div>';
+
+				var infowindow = new google.maps.InfoWindow({
+					content: contentstr
+				}); 
+
+				marker.addListener('click', function() {
+					infowindow.open(map, marker);
+				});	
+	
+				// call to set remaining markers
 				setMarkers(map);
 			}	
-			//put the action windon for drone, order number, ETA.
 			
-			//var coords = [
-			//	['Sender Location', 40.0150, -105.2705, 2],
-			//	['Reciever Location', 39.7047, -105.0814, 3] 
-			//];
-			
+			// set sender/reciever markers
 			var coords = [
 				['Sender Location', <?php echo $senderCoordinates[0].", ".$senderCoordinates[1]; ?>, 2],
 				['Reciever Location', <?php echo $recieverCoordinates[0].", ".$recieverCoordinates[1]; ?>, 3] 
@@ -130,10 +149,12 @@ if(isset($_GET['OrderId'])) {
 				
 			function setMarkers(map) {
 				
+				// custom sender/reciever markers
 				var image = {
 					url: 'https://cdn1.iconfinder.com/data/icons/buildings-landmarks-set-2/96/Post-Office-512.png',
 					scaledSize: new google.maps.Size(25,25)
 				};
+
 				for (var i = 0; i < coords.length; i++) {
 					var coord = coords[i];
 					
