@@ -8,8 +8,8 @@ if(isset($_GET['OrderId'])) {
 	$orderId = $_GET["OrderId"];
 
 	$servername = "localhost";
-	$username = "paul";
-	$password = "paul";
+	$username = "root";
+	$password = "root";
 	$dbname = "project_db";
 
 	// Create connection
