@@ -13,6 +13,7 @@
     </head>
     <body>
 	<h2>Drone Tracking Page</h2>
+	<h3>Click <a href="/tracking_v2.php">here</a> for an updated version of this page.</h3>
 	<div id="map"></div>
     	<script>
 			

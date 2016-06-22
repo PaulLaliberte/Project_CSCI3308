@@ -1,51 +1,62 @@
 <?php
 
-$senderCoordinates = array(0,0);  // order lat, lon
-$recieverCoordinates = array(0,0);
+if(isset($_GET['OrderId'])) {
 
-$orderId = $_GET["OrderId"];
+	$senderCoordinates = array(0,0);  // order lat, lon
+	$recieverCoordinates = array(0,0);
 
-$servername = "localhost";
-$username = "paul";
-$password = "paul";
-$dbname = "project_db";
+	$orderId = $_GET["OrderId"];
 
-// Create connection
-// It is important to close the connection using the three lines at the end of this file for security reasons.
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-//get sender location
-$sql = "SELECT SenderLat,SenderLong from Clients WHERE Id = (SELECT ClientId FROM Orders WHERE OrderID=".$orderId.");";
-$result = $conn->query($sql);
+	$servername = "localhost";
+	$username = "paul";
+	$password = "paul";
+	$dbname = "project_db";
 
-if ($result->num_rows > 0) {
-	// output data of each row
-	while($row = $result->fetch_assoc()) {
-		$senderCoordinates[0] = $row["SenderLat"];
-		$senderCoordinates[1] = $row["SenderLong"];
+	// Create connection
+	// It is important to close the connection using the three lines at the end of this file for security reasons.
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	// Check connection
+	if ($conn->connect_error) {
+		echo "connection error";
+		die("Connection failed: " . $conn->connect_error);
 	}
-} else {
-	echo 'Database Error, please contact the developers or click the link below to make sure that OrderId is set in the URL.<br>
-	<a href="?OrderId=121114">clientTracking.php?OrderId=121114</a><br><br>
-	';
-}
+	
+	//validate the given order id number
+	$sql = "SELECT OrderId FROM Orders WHERE OrderId=".$orderId.";";
+	$result = $conn->query($sql);
+	
+	
+	if ($result->num_rows > 0) {
+		// the orderid is valid, show the map	
 
-//get reciever location
-$sql = "SELECT RecieverLat,RecieverLong FROM Orders WHERE OrderID=".$orderId.";";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-	// output data of each row
-	while($row = $result->fetch_assoc()) {
-		$recieverCoordinates[0] = $row["RecieverLat"];
-		$recieverCoordinates[1] = $row["RecieverLong"];
+	//get sender location
+	$sql = "SELECT SenderLat,SenderLong from Clients WHERE Id = (SELECT ClientId FROM Orders WHERE OrderID=".$orderId.");";
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0) {
+		// output data of each row
+		while($row = $result->fetch_assoc()) {
+			$senderCoordinates[0] = $row["SenderLat"];
+			$senderCoordinates[1] = $row["SenderLong"];
+		}
+	} else {
+		echo 'Database Error, please contact the developers or click the link below to make sure that OrderId is set in the URL.<br>
+		<a href="?OrderId=121114">clientTracking.php?OrderId=121114</a><br><br>
+		';
 	}
-} else {
-	echo "Database Error, please contact the developers.";
-}
+
+	//get reciever location
+	$sql = "SELECT RecieverLat,RecieverLong FROM Orders WHERE OrderID=".$orderId.";";
+	$result = $conn->query($sql);
+
+	if ($result->num_rows > 0) {
+		// output data of each row
+		while($row = $result->fetch_assoc()) {
+			$recieverCoordinates[0] = $row["RecieverLat"];
+			$recieverCoordinates[1] = $row["RecieverLong"];
+		}
+	} else {
+		echo "Database Error, please contact the developers.";
+	}
 ?>
 <html>
     <head>
@@ -61,7 +72,6 @@ if ($result->num_rows > 0) {
     </head>
     <body>
 	<h2>Drone Tracking Page</h2>
-	<h3>Click <a href="/tracking_v2.php">here</a> for an updated version of this page.</h3>
 	<div id="map"></div>
     	<script>
 			
@@ -125,10 +135,18 @@ if ($result->num_rows > 0) {
     	</script>
     	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9yKxAbb4cH2ZJ_D3EWp3sG-DHJLxLURI&callback=initMap"
         async defer></script>
+<?php
+
+	} else { ?>
+		<h1>Invalid Order ID.  Try again.</h1>
+<?php
+	}
+}
+?>
 	<div class="tracking">
 		<form action="" method="get">
 			<h3>Enter information to see the drone location</h3>
-			Tracking number:<br>
+			Tracking number:
 			<input type="text" name="OrderId">
 			<input type="submit">
 		</form>
