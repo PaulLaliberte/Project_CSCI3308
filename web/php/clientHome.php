@@ -39,7 +39,7 @@ if ($conn->connect_error) {
 			<th class="tg-yw4l">Notifications</th>
 			</tr>
 			<?php
-			$sql = "select Drones.Id,Drones.status,Drones.Details,Orders.OrderId,Orders.Status FROM Drones LEFT JOIN Orders ON Drones.Id=Orders.DroneId WHERE Orders.ClientId = ".$_SESSION["ClientID"].";";
+			$sql = "select Drones.Id,Drones.status,Drones.Details,Orders.OrderId,Orders.Status,Orders.TimeOut FROM Drones LEFT JOIN Orders ON Drones.Id=Orders.DroneId WHERE Orders.ClientId = ".$_SESSION["ClientID"].";";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
@@ -51,7 +51,7 @@ if ($conn->connect_error) {
 					<td class="tg-yw4l">'.$row["status"].'</td>
 					<td class="tg-yw4l"><a href="/tracking_v2.php?OrderId='.$row["OrderId"].'">'.$row["OrderId"].'</a></td>
 					<td class="tg-yw4l">'.$row["Status"].'</td>
-					<td class="tg-yw4l">'."placeholder".'</td>
+					<td class="tg-yw4l">'.date('Y-m-d H:i:s',$row["TimeOut"]).'</td>
 					<td class="tg-yw4l">'.$row["Details"].'</td>
 					</tr>';
 						
