@@ -4,6 +4,7 @@ if(isset($_GET['OrderId'])) {
 
 	$senderCoordinates = array(0,0);  // order lat, lon
 	$recieverCoordinates = array(0,0);
+	$droneCoordinates = array(0,0);
 
 	$orderId = $_GET["OrderId"];
 
@@ -21,6 +22,7 @@ if(isset($_GET['OrderId'])) {
 		die("Connection failed: " . $conn->connect_error);
 	}
 	
+
 	//validate the given order id number
 	$sql = "SELECT OrderId FROM Orders WHERE OrderId=".$orderId.";";
 	$result = $conn->query($sql);
@@ -57,6 +59,21 @@ if(isset($_GET['OrderId'])) {
 	} else {
 		echo "Database Error, please contact the developers.";
 	}
+
+	//get drone position
+         $sql = "SELECT DroneLat,DroneLong FROM Orders WHERE OrderID=".$orderId.";";
+         $result = $conn->query($sql);
+ 
+         if ($result->num_rows > 0) {
+                 // output data of each row
+                 while($row = $result->fetch_assoc()) {
+                         $droneCoordinates[0] = $row["DroneLat"];
+                         $droneCoordinates[1] = $row["DroneLong"];
+                 }
+         } else {
+                 echo "Database Error, please contact the developers.";
+         }
+
 ?>
 <html>
     <head>
@@ -76,11 +93,9 @@ if(isset($_GET['OrderId'])) {
     	<script>
 			
       		function initMap() {
-				
+	
 				var droneLatLng = ['Delivery Location', <?php 
-				//echo $senderCoordinates[0].", ".$senderCoordinates[1];
-				echo "39.7555, -105.2211"   
-				?>];
+				echo $droneCoordinates[0].", ".$droneCoordinates[1];?>];
 			
 				var map = new google.maps.Map(document.getElementById('map'), {
 					zoom: 9,
@@ -101,6 +116,7 @@ if(isset($_GET['OrderId'])) {
 				
 				setMarkers(map);
 			}	
+			//put the action windon for drone, order number, ETA.
 			
 			//var coords = [
 			//	['Sender Location', 40.0150, -105.2705, 2],
