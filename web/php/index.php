@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styling/index_styling.css" type="text/css"/> 
   </head>
   <body>
-    
-<div class = "navbar navbar-inverse" role="navigation">
+<div class = "navbar navbar-inverse navbar-custom1" role="navigation">
   <div class="container">
     <div class="navbar-header">
 	<button type="button" class="navbar-toggle"
 	data-toggle="collapse" data-target=".navbar-collapse">
-	   <span class="sr.only">Toggle navigatio</span>
+	   <span class="sr.only">Toggle navigation</span>
 	   <span class="icon-bar"></span>
 	   <span class="icon-bar"></span>
 	   <span class="icon-bar"></span>
@@ -28,7 +28,6 @@
     </div>
   </div>
 </div>
-
     
 <div class="container">
    <div class="page-header">
