@@ -27,13 +27,14 @@ if ($conn->connect_error) {
     <body>
         <div class="container" style="margin-left:auto;margin-right:auto;text-align:center;">
             <h1>Client Home</h2><br>
+            <p>Click on the Order IDs to see where the drones carrying those packages are.</p>
             <table class="tg">
 			<tr>
 			<th class="tg-yw4l">Drone ID</th>
 			<th class="tg-yw4l">Drone Status</th>
 			<th class="tg-yw4l">Order ID</th>
-			<th class="tg-yw4l">Tracking Number</th>
 			<th class="tg-yw4l">Order status</th>
+			<th class="tg-yw4l">Departure Time</th>
 			<th class="tg-yw4l">Notifications</th>
 			</tr>
 			<?php
@@ -47,9 +48,9 @@ if ($conn->connect_error) {
 					echo '<tr>
 					<td class="tg-yw4l">'.$row["Id"].'</td>
 					<td class="tg-yw4l">'.$row["status"].'</td>
-					<td class="tg-yw4l">'.$row["OrderId"].'</td>
-					<td class="tg-yw4l">'.$row["OrderId"].'</td>
+					<td class="tg-yw4l"><a href="/tracking_v2.php?OrderId='.$row["OrderId"].'">'.$row["OrderId"].'</a></td>
 					<td class="tg-yw4l">'.$row["Status"].'</td>
+					<td class="tg-yw4l">'."placeholder".'</td>
 					<td class="tg-yw4l">'.$row["Details"].'</td>
 					</tr>';
 						
