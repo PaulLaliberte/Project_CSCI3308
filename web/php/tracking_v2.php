@@ -46,8 +46,8 @@ if(isset($_GET['OrderId'])) {
 		';
 	}
 
-	//get reciever location
-	$sql = "SELECT RecieverLat,RecieverLong FROM Orders WHERE OrderID=".$orderId.";";
+	//get receiver location, drone position, and drone launch time
+	$sql = "SELECT RecieverLat,RecieverLong,DroneLat,DroneLong FROM Orders WHERE OrderID=".$orderId.";";
 	$result = $conn->query($sql);
 
 	if ($result->num_rows > 0) {
@@ -55,25 +55,13 @@ if(isset($_GET['OrderId'])) {
 		while($row = $result->fetch_assoc()) {
 			$recieverCoordinates[0] = $row["RecieverLat"];
 			$recieverCoordinates[1] = $row["RecieverLong"];
+			$droneCoordinates[0] = $row["DroneLat"];
+			$droneCoordinates[1] = $row["DroneLong"];
+			$droneTimeOut = $row["TimeOut"];
 		}
 	} else {
 		echo "Database Error, please contact the developers.";
 	}
-
-	//get drone position
-         $sql = "SELECT DroneLat,DroneLong FROM Orders WHERE OrderID=".$orderId.";";
-         $result = $conn->query($sql);
- 
-         if ($result->num_rows > 0) {
-                 // output data of each row
-                 while($row = $result->fetch_assoc()) {
-                         $droneCoordinates[0] = $row["DroneLat"];
-                         $droneCoordinates[1] = $row["DroneLong"];
-                 }
-         } else {
-                 echo "Database Error, please contact the developers.";
-         }
-
 ?>
 <html>
     <head>
