@@ -1,4 +1,5 @@
 <?php
+session_start();
 $servername = "localhost";
 $username = "paul";
 $password = "paul";
@@ -38,7 +39,7 @@ if ($conn->connect_error) {
 			<th class="tg-yw4l">Notifications</th>
 			</tr>
 			<?php
-			$sql = "select Drones.Id,Drones.status,Drones.Details,Orders.OrderId,Orders.Status FROM Drones LEFT JOIN Orders ON Drones.Id=Orders.DroneId";
+			$sql = "select Drones.Id,Drones.status,Drones.Details,Orders.OrderId,Orders.Status FROM Drones LEFT JOIN Orders ON Drones.Id=Orders.DroneId WHERE Orders.ClientId = ".$_SESSION["ClientID"].";";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
