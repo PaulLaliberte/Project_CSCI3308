@@ -125,7 +125,7 @@ if(isset($_GET['OrderId'])) {
 					'<div id="deliveryInfo">' + 
 					'</div>' + 
 					'<h1 id="firstHeading" class="firstHeading">Delivery Info</h1>' +  
-					'<p><b>Order ID:</b>' + '<?php echo $orderId?>' + '</p>' +
+					'<p><b>Order ID: </b>' + '<?php echo $orderId?>' + '</p>' +
 					'<b>Current Status:</b> in transit</p>' +
 					'<b>Flight Speed:</b> 20 meters per second (45 miles per hour)</p>' + 
 					'<b>Delivery ETA: </b>' + '<?php 
