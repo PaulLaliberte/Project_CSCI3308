@@ -1,5 +1,11 @@
 <?php
 session_start();
+
+if (!isset($_SESSION["ClientID"])) {
+	echo 'Not logged in.<br><a href="/">Click here to go home.</a>';
+	exit();
+}
+
 $servername = "localhost";
 $username = "root";
 $password = "root";
@@ -12,6 +18,50 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
+if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"]) && !empty($_GET["priority"])) {
+
+	//Convert address to Coordinates
+	$request_url = "http://maps.googleapis.com/maps/api/geocode/xml?address=".urlencode($_GET["address"].','.$_GET["city"].','.$_GET["state"].',USA')."&sensor=true";
+	$xml = simplexml_load_file($request_url) or die("url not loading");
+	$status = $xml->status;
+	if ($status=="OK") {
+		$recieverLat = $xml->result->geometry->location->lat;
+		$recieverLon = $xml->result->geometry->location->lng;
+	} else {
+		echo "Could not parse address into coordinates, please contact the developers.";
+		exit();
+	}
+
+	//get receiver location, drone position, and drone launch time
+	$sql = "SELECT Id FROM Drones WHERE Status=0 LIMIT 1;"; //This is a bug because 0 is currently for "Returning to Base", but it should be "drone availiable".
+	$result = $conn->query($sql);
+
+	if ($result->num_rows > 0) {
+		// output data of each row
+		while($row = $result->fetch_assoc()) {
+			$droneID = $row["Id"];
+		}
+	} else {
+		echo "Sorry, all drones are busy.  A drone will be asigned to you order as soon as possible.";
+		$droneID = "NULL";
+	}
+	// if (new DateTime() > new DateTime($_GET["pickupTime"])) {
+	//     $pickupTime = time();
+	// } else {
+	// 	$pickupTime = date_timestamp_get(new DateTime($_GET["pickupTime"]));
+	// }
+	$orderTime = time();
+	//Insert the order into the database
+	$sql = 'INSERT INTO Orders (OrderId, ClientId, DroneId, OrderTimestamp, RecieverLat, RecieverLong, Status, TimeOut, DroneLat, DroneLong) VALUES (NULL, '.$_SESSION["ClientID"].', '.$droneID.', '.$orderTime.', '.$recieverLat.', '.$recieverLon.', 0, NULL, NULL, NULL);';
+
+	if ($conn->query($sql) === TRUE) {
+		echo 'Your Order, #'.$conn->insert_id.', has been placed.  <br><a href="/clientHome.php">Click here to go back.</a>';
+	} else {
+		echo "Error: " . $sql . "<br>" . $conn->error;
+		exit();
+	}
+} else if (empty($_GET)) {
 ?>
 <html>
     <head>
@@ -39,19 +89,24 @@ if ($conn->connect_error) {
 			<th class="tg-yw4l">Notifications</th>
 			</tr>
 			<?php
-			$sql = "select Drones.Id,Drones.status,Drones.Details,Orders.OrderId,Orders.Status,Orders.TimeOut FROM Drones LEFT JOIN Orders ON Drones.Id=Orders.DroneId WHERE Orders.ClientId = ".$_SESSION["ClientID"].";";
+			$sql = "select Drones.Id,Drones.Details,Drones.Details AS DroneStatus,Orders.OrderId,Orders.TimeOut,OrderStatus.Description AS Status FROM Drones RIGHT JOIN Orders ON Drones.Id=Orders.DroneId LEFT JOIN OrderStatus ON OrderStatus.Status=Orders.Status WHERE Orders.ClientId = ".$_SESSION["ClientID"].";";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
 				// output data of each row
 				while($row = $result->fetch_assoc()) {
 					//echo "id: " . $row["id"]. " - status: " . $row["status"]. "<br>";
+					if (is_null($row["TimeOut"])) {
+						$timeOut = 'Shipment Pending';
+					} else {
+						$timeOut = date('Y-m-d H:i:s',$row["TimeOut"]);
+					}
 					echo '<tr>
 					<td class="tg-yw4l">'.$row["Id"].'</td>
-					<td class="tg-yw4l">'.$row["status"].'</td>
+					<td class="tg-yw4l">'.$row["DroneStatus"].'</td>
 					<td class="tg-yw4l"><a href="/tracking_v2.php?OrderId='.$row["OrderId"].'">'.$row["OrderId"].'</a></td>
 					<td class="tg-yw4l">'.$row["Status"].'</td>
-					<td class="tg-yw4l">'.date('Y-m-d H:i:s',$row["TimeOut"]).'</td>
+					<td class="tg-yw4l">'.$timeOut.'</td>
 					<td class="tg-yw4l">'.$row["Details"].'</td>
 					</tr>';
 						
@@ -60,11 +115,80 @@ if ($conn->connect_error) {
 				echo "Database Error, please contact the developers.";
 			}
 			?>			
-			</table>
+			</table><br><br>
+			
+			<div class="form-horizontal">
+				
+				<form action="" method="GET" id="orderForm">
+					Recipient's Address:<input type="text" name="address" autocomplete="street-address"><br>
+					Recipient's City:<input type="text" name="city" autocomplete="address-level2"><br>
+
+					Recipient's State:<input list="state" name="state" autocomplete="address-level1">
+						<datalist id='state' name="state">
+						<option value="Alaska">
+						<option value="Arizona">
+						<option value="Arkansas">
+						<option value="California">
+						<option value="Colorado">
+						<option value="Connecticut">
+						<option value="Delaware">
+						<option value="District Of Columbia">
+						<option value="Florida">
+						<option value="Georgia">
+						<option value="Hawaii">
+						<option value="Idaho">
+						<option value="Illinois">
+						<option value="Indiana">
+						<option value="Iowa">
+						<option value="Kansas">
+						<option value="Kentucky">
+						<option value="Louisiana">
+						<option value="Maine">
+						<option value="Maryland">
+						<option value="Massachusetts">
+						<option value="Michigan">
+						<option value="Minnesota">
+						<option value="Mississippi">
+						<option value="Missouri">
+						<option value="Montana">
+						<option value="Nebraska">
+						<option value="Nevada">
+						<option value="New Hampshire">
+						<option value="New Jersey">
+						<option value="New Mexico">
+						<option value="New York">
+						<option value="North Carolina">
+						<option value="North Dakota">
+						<option value="Ohio">
+						<option value="Oklahoma">
+						<option value="Oregon">
+						<option value="Pennsylvania">
+						<option value="Rhode Island">
+						<option value="South Carolina">
+						<option value="South Dakota">
+						<option value="Tennessee">
+						<option value="Texas">
+						<option value="Utah">
+						<option value="Vermont">
+						<option value="Virginia">
+						<option value="Washington">
+						<option value="West Virginia">
+						<option value="Wisconsin">
+						<option value="Wyoming" name="WY">
+						</datalist><br>
+					Package Weight (kg): <input type="text" name="weight"><br>
+					<!--Pickup Time: <input type="datetime-local" name="pickupTime" value="<?php echo date("Y-m-d\TH:i:s"); ?>"><br>-->
+					Shipping Priority: <input type="radio" name="priority" checked="checked" value="high">High<br>
+					<input type="submit" value="Place Order">
+				</form>
+				
+			</div>
+			
             <p>Click <a href="/">here</a> to go home.</p>
         </div>
     </body>
 <html>
 <?php
+}
 $conn->close();
 ?>
