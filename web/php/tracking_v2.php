@@ -169,7 +169,7 @@ if(isset($_GET['OrderId'])) {
 						{ saturation: -80 }
 					]
 					},{
-					featureType: "road.arterial",
+					featureType: "road.highway",
 					elementType: "geometry",
 					stylers: [
 						{ hue: "00ffee" },
