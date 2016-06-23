@@ -61,10 +61,10 @@ INSERT INTO `Drones` (`Id`, `Status`, `Details`,`Renter`) VALUES
 
 
 CREATE TABLE IF NOT EXISTS `OrderStatus` (
-`Status` int(1) NOT NULL auto_increment,
+`Status` int(1) NOT NULL,
 `Description` varchar(128) NOT NULL,
 PRIMARY KEY (`Status`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
 
 INSERT INTO `OrderStatus` (`Status`, `Description`) VALUES
 (0, 'processing'),
