@@ -19,16 +19,16 @@ INSERT INTO `Clients` (`Id`, `Name`, `Password`, `Business`, `SenderLat`, `Sende
 (05, 'Bill Christie', 'password','BTC', 39.8028, -105.0875);
 
 CREATE TABLE IF NOT EXISTS `Orders` (
-`OrderId` int(6) NOT NULL auto_increment,
+`OrderId` int(6) UNIQUE auto_increment,
 `ClientId` int(2) NOT NULL,
-`DroneId` int(6) NOT NULL,
+`DroneId` int(6) NULL,
 `OrderTimestamp` int(32) NOT NULL,
 `RecieverLat` float NOT NULL,
 `RecieverLong` float NOT NULL,
 `Status` int(1) NOT NULL,
-`TimeOut` int(32) NOT NULL,
-`DroneLat` float NOT NULL,
-`DroneLong` float NOT NULL,
+`TimeOut` int(32) NULL,
+`DroneLat` float NULL,
+`DroneLong` float NULL,
 PRIMARY KEY (`OrderId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ; 
 
