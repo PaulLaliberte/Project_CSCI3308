@@ -17,24 +17,26 @@ if (!empty($_POST['name'])&&!empty($_POST['user'])&&!empty($_POST['address'])){
 
    //this is where i get errors
    if($res->num_rows == 0){
-      $sqlid = "SELECT Id FROM Clients ORDER DESC LIMIT 1"; //get id
-      $s_id = $conn->query($sqlid);
-      $q_id = $s_id->fetch_assoc();
-      $id = $s_id["Id"] + 1;
-      $latlong = (int) explode("/",$_POST['address']); //parse lat/long
-      $lat = $latlong[0];
-      $long = $latlong[1];
-
-      $sql_in = "INSERT INTO Clients (Id, Name, Password, Business, SenderLat, SenderLong) VALUES ('$id','$_POST[name]','$_POST[pass],'$_POST[user]','$lat','$long')";
-      if($conn->query($sql_in) == TRUE){
-         echo "SUCCESS";
-         exit();
-      }else{
-         echo "FAIL";
+   //Convert address to Coordinates
+      $request_url = "http://maps.googleapis.com/maps/api/geocode/xml?address=".urlencode($_POST["address"])."&sensor=true";
+      $xml = simplexml_load_file($request_url) or die("url not loading");
+      $status = $xml->status;
+      if ($status=="OK") {
+         $lat = $xml->result->geometry->location->lat;
+         $long = $xml->result->geometry->location->lng;
+      } else {
+         echo "Could not parse address into coordinates, please contact the developers.";
          exit();
       }
-      header("Location: /");
-      exit();
+      $sql_in = "INSERT INTO Clients (Id, Name, Password, Business, SenderLat, SenderLong) VALUES (NULL, '$_POST[name]', '$_POST[pass]', '$_POST[user]', '$lat', '$long');";
+      echo $sql_in;
+      if($conn->query($sql_in) == TRUE){
+         header("Location: /");
+         exit();
+      }else{
+         echo "Failed registration, please try again";
+         exit();
+      }
    }else{
       echo "Username already in use, please register again";
       exit();
@@ -105,17 +107,14 @@ if (!empty($_POST['name'])&&!empty($_POST['user'])&&!empty($_POST['address'])){
 						</div>
 					</div>
 			   	<div class="form-group">
-						<label for="address" class="cols-sm-2 control-label">Latitude/Longitude</label>
+						<label for="address" class="cols-sm-2 control-label">Address</label>
 						<div class="cols-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-								<input type="text" class="form-control" name="address" id="address" placeholder="Business Lat/Long (in format lat/long)"></input>
+								<input type="text" class="form-control" name="address" id="address" placeholder="Street name City State Zip"></input>
 							</div>
 						</div>
    				</div>
-               <div class="login-register">
-                    <li> <a href="http://stevemorse.org/jcal/latlon.php" target="_blank">Address to lat/long</a></li>
-               </div>
 					<div class="form-group">
 						<label for="password" class="cols-sm-2 control-label">Password</label>
 						<div class="cols-sm-10">
