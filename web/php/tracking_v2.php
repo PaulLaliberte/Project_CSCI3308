@@ -126,13 +126,21 @@ if(isset($_GET['OrderId'])) {
 					'</div>' + 
 					'<h1 id="firstHeading" class="firstHeading">Delivery Info</h1>' +  
 					'<p><b>Order ID: </b>' + '<?php echo $orderId?>' + '</p>' +
-					'<b>Current Status:</b> in transit</p>' +
+					'<b>Current Status: </b>' + '<?php
+						if ($time <= 0) {
+							echo "delivery complete";
+						} else { 
+							echo "in transit";
+						}				
+					?>' + '</p>' +
 					'<b>Flight Speed:</b> 20 meters per second (45 miles per hour)</p>' + 
-					'<b>Delivery ETA: </b>' + '<?php 
-						if (time < 1) {
+					'<b>Delivery ETA: </b>' + '<?php
+						if ($time <=0) {
+ 							echo "delivery complete.";
+						} else if ($time < 1) {
 							$time = intval($time * 60);
 							echo "estimated $time minutes";
-						}else {
+						} else {
 							$seconds = $time * 3600;
 							$hours = floor(($seconds % 86400) / 3600);
 							$minutes = floor(($seconds % 3600) / 60);
@@ -152,6 +160,25 @@ if(isset($_GET['OrderId'])) {
 	
 				// call to set remaining markers
 				setMarkers(map);
+				
+				// map styling
+				var styles = [
+					{
+					featureType: "all",
+					stylers: [
+						{ saturation: -80 }
+					]
+					},{
+					featureType: "road.highway",
+					elementType: "geometry",
+					stylers: [
+						{ hue: "00ffee" },
+						{ saturation: 50 }
+					]
+					}
+				];
+			// uncomment below to turn on optional map styling.
+			//	map.setOptions( {styles: styles});
 			}	
 			
 			// set sender/reciever markers
@@ -159,7 +186,7 @@ if(isset($_GET['OrderId'])) {
 				['Sender Location', <?php echo $senderCoordinates[0].", ".$senderCoordinates[1]; ?>, 2, 'https://cdn1.iconfinder.com/data/icons/buildings-landmarks-set-2/96/Post-Office-512.png'],
 				['Reciever Location', <?php echo $recieverCoordinates[0].", ".$recieverCoordinates[1]; ?>, 3, 'http://simpleicon.com/wp-content/uploads/home-5.png'] 
 			];
-				
+							
 			function setMarkers(map) {
 				
 				// custom sender/reciever markes;
