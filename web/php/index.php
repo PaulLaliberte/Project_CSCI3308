@@ -61,7 +61,7 @@ if (!empty($_POST['user'])){
      <h1 class="text-center">Welcome to DPDS</h1>
    </div>
    <div class="container">
-      <div class="row main">
+      <div class="row-main">
          <div class="panel-heading">
             <div class = "panel-title text-center">
                <h1 class="title">Log In</h1>
@@ -70,7 +70,7 @@ if (!empty($_POST['user'])){
          </div>
          <div class="main-login main-center">
             <div class="form-horizontal">
-               <form method="POST" action="indextemp.php">
+               <form method="POST" action="index.php">
                   <div class="form-group">
                      <label for="user" class="cols-sm-2 control-label">Name</label>
                      <div class="cols-sm-10">
