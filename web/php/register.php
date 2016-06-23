@@ -14,7 +14,25 @@ if ($conn->connect_error) {
 if (!empty($_POST['name'])&&!empty($_POST['user'])&&!empty($_POST['address'])){
    $sql = "SELECT * FROM Clients WHERE Business = '$_POST[user]'";
    $res = $conn->query($sql);
+
+   //this is where i get errors
    if($res->num_rows == 0){
+      $sqlid = "SELECT Id FROM Clients ORDER DESC LIMIT 1"; //get id
+      $s_id = $conn->query($sqlid);
+      $q_id = $s_id->fetch_assoc();
+      $id = $s_id["Id"] + 1;
+      $latlong = (int) explode("/",$_POST['address']); //parse lat/long
+      $lat = $latlong[0];
+      $long = $latlong[1];
+
+      $sql_in = "INSERT INTO Clients (Id, Name, Password, Business, SenderLat, SenderLong) VALUES ('$id','$_POST[name]','$_POST[pass],'$_POST[user]','$lat','$long')";
+      if($conn->query($sql_in) == TRUE){
+         echo "SUCCESS";
+         exit();
+      }else{
+         echo "FAIL";
+         exit();
+      }
       header("Location: /");
       exit();
    }else{
