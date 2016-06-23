@@ -68,6 +68,8 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
         <title>Client Homepage</title>
         <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
         <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
+       <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
         <style type="text/css">
 			.tg  {border-collapse:collapse;border-spacing:0;margin-left:auto;margin-right:auto;}
 			.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
@@ -111,19 +113,50 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 					</tr>';
 						
 				}
-			} else {
-				echo "Database Error, please contact the developers.";
-			}
-			?>			
+			} 
+         echo 'To request more drones, click <a href="/drones.php">here</a>.';
+         ?>			
 			</table><br><br>
 			
-			<div class="form-horizontal">
 				
-				<form action="" method="GET" id="orderForm">
-					Recipient's Address:<input type="text" name="address" autocomplete="street-address"><br>
-					Recipient's City:<input type="text" name="city" autocomplete="address-level2"><br>
-
-					Recipient's State:<input list="state" name="state" autocomplete="address-level1">
+		<div class="container">
+        <div class="row main">
+          <div class="panel-heading">
+            <div class="panel-title text-center">
+               <h3 class="title">Place Order</h3>
+               <hr />
+            </div>
+         <div>
+         <div class="main-login main-center">
+            <div class="form-horizontal">
+		      <form action="" method="GET" id="orderForm">
+               <div class="form-group">
+                  <label for="address" class="cols-sm-2 control-label">Recipient Street</label>
+                  <div class="cols-sm-10">
+                     <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" name="address" placeholder="Street" autocomplete="street-address"></input>
+                     </div>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="city" class="cols-sm-2 control-label">Recipient City</label>
+                  <div class="cols-sm-10">
+                     <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" name="city" placeholder="City" autocomplete="address-level2"></input>
+                     </div>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="state" class="cols-sm-2 control-label">Recipient State</label>
+                  <div class="cols-sm-10">
+                     <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input list="state" class="form-control" name="state" placeholder="State" autocomplete="address-level1"></input>
+                     </div>
+                  </div>
+               </div>
 						<datalist id='state' name="state">
 						<option value="Alaska">
 						<option value="Arizona">
@@ -176,14 +209,23 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 						<option value="Wisconsin">
 						<option value="Wyoming" name="WY">
 						</datalist><br>
-					Package Weight (kg): <input type="text" name="weight"><br>
+               <div class="form-group">
+                  <label for="weight" class="cols-sm-2 control-label">Package Weight</label>
+                  <div class="cols-sm-10">
+                     <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input list="text" class="form-control" name="weight" placeholder="Weight(kg)"></input>
+                     </div>
+                  </div>
+               </div>
 					<!--Pickup Time: <input type="datetime-local" name="pickupTime" value="<?php echo date("Y-m-d\TH:i:s"); ?>"><br>-->
 					Shipping Priority: <input type="radio" name="priority" checked="checked" value="high">High<br>
-					<input type="submit" value="Place Order">
+               <div class="form-group ">
+                     <input type="submit" class="btn btn-primary btn-lg btn-block" value="Place Order">
+                  </div>
 				</form>
 				
 			</div>
-			
             <p>Click <a href="/">here</a> to go home.</p>
         </div>
     </body>
