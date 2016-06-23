@@ -49,7 +49,7 @@ if (!empty($_POST['user'])){
     </div>
     <div class="navbar-collapse">
    <ul class="nav navbar-nav">
-      <li><a href="/tracking.php">Tracking</a></li>
+      <li><a href="/tracking_v2.php">Tracking</a></li>
    </ul>
     </div>
     </div>
