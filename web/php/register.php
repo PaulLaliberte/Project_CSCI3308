@@ -87,14 +87,17 @@ if (!empty($_POST['name'])&&!empty($_POST['user'])&&!empty($_POST['address'])){
 						</div>
 					</div>
 			   	<div class="form-group">
-						<label for="address" class="cols-sm-2 control-label">Address</label>
+						<label for="address" class="cols-sm-2 control-label">Latitude/Longitude</label>
 						<div class="cols-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-								<input type="text" class="form-control" name="address" id="address" placeholder="Business Address"></input>
+								<input type="text" class="form-control" name="address" id="address" placeholder="Business Lat/Long (in format lat/long)"></input>
 							</div>
 						</div>
-					</div>
+   				</div>
+               <div class="login-register">
+                    <li> <a href="http://stevemorse.org/jcal/latlon.php" target="_blank">Address to lat/long</a></li>
+               </div>
 					<div class="form-group">
 						<label for="password" class="cols-sm-2 control-label">Password</label>
 						<div class="cols-sm-10">
@@ -104,7 +107,7 @@ if (!empty($_POST['name'])&&!empty($_POST['user'])&&!empty($_POST['address'])){
 							</div>
 						</div>
 					</div>
-				<div class="form-group ">
+            <div class="form-group ">
                 <input id="button" type="submit" class="btn btn-primary btn-lg btn-block" name="submit" value="Register">
             </div>
             </form>	
