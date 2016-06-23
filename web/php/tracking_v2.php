@@ -152,6 +152,25 @@ if(isset($_GET['OrderId'])) {
 	
 				// call to set remaining markers
 				setMarkers(map);
+				
+				// map styling
+				var styles = [
+					{
+					featureType: "all",
+					stylers: [
+						{ saturation: -80 }
+					]
+					},{
+					featureType: "road.arterial",
+					elementType: "geometry",
+					stylers: [
+						{ hue: "00ffee" },
+						{ saturation: 50 }
+					]
+					}
+				];
+			// uncomment below to turn on optional map styling.
+			//	map.setOptions( {styles: styles});
 			}	
 			
 			// set sender/reciever markers
@@ -159,7 +178,7 @@ if(isset($_GET['OrderId'])) {
 				['Sender Location', <?php echo $senderCoordinates[0].", ".$senderCoordinates[1]; ?>, 2, 'https://cdn1.iconfinder.com/data/icons/buildings-landmarks-set-2/96/Post-Office-512.png'],
 				['Reciever Location', <?php echo $recieverCoordinates[0].", ".$recieverCoordinates[1]; ?>, 3, 'http://simpleicon.com/wp-content/uploads/home-5.png'] 
 			];
-				
+							
 			function setMarkers(map) {
 				
 				// custom sender/reciever markes;
