@@ -19,6 +19,25 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+
+if (!empty($_POST["verifyid"]) && !empty($_POST["verifypass"]) && !empty($_POST["drones"])){
+   $sql = "SELECT Id FROM Clients WHERE Business = '$_POST[verifyid]' AND Password = '$_POST[verifypass]';";
+   $res = $conn->query($sql);
+   if ($res->num_rows ==1){
+      $row = $res->fetch_assoc();
+      if ($row["Id"]==$_SESSION["ClientID"]){
+         echo "success";
+         exit();
+      }else{
+         echo "Logged in as different user, drone request failed";
+         exit();
+      }
+   }else{
+      echo "Drone request failed";
+      exit();
+   }
+}
+
 if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"]) && !empty($_GET["priority"])) {
 
 	//Convert address to Coordinates
@@ -76,8 +95,29 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 			.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
 			.tg .tg-yw4l{vertical-align:top}
 		</style>
-    </head>
-    <body>
+  </head>
+<body>
+   <div class = "navbar navbar-inverse navbar-custom" role="navigation">
+      <div class="container">
+         <div class="navbar-header">
+            <button type="button" class="navbar-toggle"
+   data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="sr.only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+   </button>
+    </div>
+    <div class="navbar-collapse">
+   <ul class="nav navbar-nav">
+      <li><a href="/clientHome.php#order">Place Order</a></li>
+      <li><a href="/clientHome.php#drone">Request Drones</a></li>
+   </ul>
+    </div>
+    </div>
+  </div>
+</div>
+
         <div class="container" style="margin-left:auto;margin-right:auto;text-align:center;">
             <h1>Client Home</h2><br>
             <p>Click on the Order IDs to see where the drones carrying those packages are.</p>
@@ -113,8 +153,10 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 					</tr>';
 						
 				}
-			} 
-         echo 'To request more drones, click <a href="/drones.php">here</a>.';
+			} else{
+            echo 'error accessing databse';
+         }
+
          ?>			
 			</table><br><br>
 			
@@ -123,10 +165,10 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
         <div class="row main">
           <div class="panel-heading">
             <div class="panel-title text-center">
-               <h3 class="title">Place Order</h3>
+               <div name="order" id ="order" ><h3 class="title">Place Order</h3></div>
                <hr />
             </div>
-         <div>
+         </div>
          <div class="main-login main-center">
             <div class="form-horizontal">
 		      <form action="" method="GET" id="orderForm">
@@ -224,9 +266,60 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
                      <input type="submit" class="btn btn-primary btn-lg btn-block" value="Place Order">
                   </div>
 				</form>
-				
 			</div>
-            <p>Click <a href="/">here</a> to go home.</p>
+      </div>
+   </div>
+</div>
+
+      <div class="container">
+        <div class="row main">
+          <div class="panel-heading">
+            <div class="panel-title text-center">
+               <div name="drone" id ="drone" ><h3 class="title">Request Drones</h3></div>
+               <hr />
+            </div>
+         </div>
+         <div class="main-login main-center">
+            <div class="form-horizontal">
+            <form action="clientHome.php" method="POST">
+               <div class="form-group">
+                  <label for="verifyid" class="cols-sm-2 control-label">Verify Business ID</label>
+                  <div class="cols-sm-10">
+                     <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" name="verifyid" placeholder="Business ID"></input>
+                     </div>
+                 </div>
+               </div> 
+               <div class="form-group">
+                  <label for="verifypass" class="cols-sm-2 control-label">Verify Password</label>
+                  <div class="cols-sm-10">
+                     <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" name="verifypass" placeholder="Password"></input>
+                     </div>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="drones" class="cols-sm-2 control-label">Number of Drones to Request</label>
+                  <div class="cols-sm-10">
+                     <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" name="drones" placeholder="Number"></input>
+                     </div>
+                  </div>
+               </div>	
+               <div class="form-group ">
+                     <input type="submit" class="btn btn-primary btn-lg btn-block" value="Process Request">
+               </div>
+            </form>
+            </div>
+         </div>
+      </div>
+   </div>
+
+			<div>
+            <p>Click <a href="/clientHome.php">here</a> to go back to top.</p>
         </div>
     </body>
 <html>
