@@ -46,6 +46,7 @@ if (!empty($_POST["verifyid"]) && !empty($_POST["verifypass"]) && !empty($_POST[
    }
 }
 
+//Placing order
 if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"]) && !empty($_GET["priority"])) {
 
 	//Convert address to Coordinates
@@ -61,23 +62,17 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 	}
 
 	//get receiver location, drone position, and drone launch time
-	$sql = "SELECT Id FROM Drones WHERE Status=0 LIMIT 1;"; //This is a bug because 0 is currently for "Returning to Base", but it should be "drone availiable".
+	$sql = "SELECT Id FROM Drones WHERE Status=0 AND Renter = '$_SESSION[ClientID]' LIMIT 1;"; //This is a bug because 0 is currently for "Returning to Base", but it should be "drone availiable".
 	$result = $conn->query($sql);
 
-	if ($result->num_rows > 0) {
+	if ($result->num_rows == 1) { 
 		// output data of each row
-		while($row = $result->fetch_assoc()) {
-			$droneID = $row["Id"];
-		}
+		$row = $result->fetch_assoc();
+		$droneID = $row["Id"];
 	} else {
 		echo "Sorry, all drones are busy.  A drone will be asigned to you order as soon as possible.";
 		$droneID = "NULL";
 	}
-	// if (new DateTime() > new DateTime($_GET["pickupTime"])) {
-	//     $pickupTime = time();
-	// } else {
-	// 	$pickupTime = date_timestamp_get(new DateTime($_GET["pickupTime"]));
-	// }
 	$orderTime = time();
 	//Insert the order into the database
 	$sql = 'INSERT INTO Orders (OrderId, ClientId, DroneId, OrderTimestamp, RecieverLat, RecieverLong, Status, TimeOut, DroneLat, DroneLong) VALUES (NULL, '.$_SESSION["ClientID"].', '.$droneID.', '.$orderTime.', '.$recieverLat.', '.$recieverLon.', 0, NULL, NULL, NULL);';
@@ -162,7 +157,7 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 						
 				}
 			} else{
-            echo 'error accessing databse';
+            echo 'error accessing database';
          }
 
          ?>			
