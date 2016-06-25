@@ -5,14 +5,9 @@ $recieverCoordinates = array(0,0);
 
 $orderId = $_GET["OrderId"];
 
-$servername = "localhost";
-$username = "paul";
-$password = "paul";
-$dbname = "project_db";
-
 // Create connection
 // It is important to close the connection using the three lines at the end of this file for security reasons.
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli('0.0.0.0', 'root', 'root', 'project_db');
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);

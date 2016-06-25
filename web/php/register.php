@@ -1,12 +1,7 @@
 <?php
 //register page
 
-$host="localhost";
-$user="root";
-$pass="root";
-$db="project_db";
-
-$conn = mysqli_connect($host,$user,$pass,$db);
+$conn = mysqli_connect('0.0.0.0', 'root', 'root', 'project_db');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
