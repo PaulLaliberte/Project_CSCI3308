@@ -89,89 +89,97 @@ if(isset($_GET['OrderId'])) {
 			
       		function initMap() {
 				
-				//set drone coordinates.
-				var droneLatLng = ['Delivery Location', <?php 
-				echo $droneCoordinates[0].", ".$droneCoordinates[1];?>];
+			//set drone coordinates.
+			var droneLatLng = ['Delivery Location', <?php 
+			echo $droneCoordinates[0].", ".$droneCoordinates[1];?>];
 			
-				//initiate map
-				var map = new google.maps.Map(document.getElementById('map'), {
-					zoom: 9,
-					center: {lat: droneLatLng[1], lng: droneLatLng[2]}
-				});
+			//initialize map
+			var map = new google.maps.Map(document.getElementById('map'), {
+				zoom: 9,
+				center: {lat: droneLatLng[1], lng: droneLatLng[2]}
+			});
 				
-				// custom drone marker
-				var drone = {
-				url:'https://cdn2.iconfinder.com/data/icons/modern-future-technology/128/drone-128.png',
-				scaledSize: new google.maps.Size(25,25)
-				};
+			// place  custom delivery marker
+			var drone = {
+			url:'https://cdn2.iconfinder.com/data/icons/modern-future-technology/128/drone-128.png',
+			scaledSize: new google.maps.Size(25,25)
+			};
 				
-				var marker = new google.maps.Marker({
-					position: {lat: droneLatLng[1], lng: droneLatLng[2]},
-					map: map,
-					icon: drone,
-					title: droneLatLng[0]
-				});
+			var marker = new google.maps.Marker({
+				position: {lat: droneLatLng[1], lng: droneLatLng[2]},
+				map: map,
+				icon: drone,
+				title: droneLatLng[0]
+			});
 				
-				// info window for drone marker
-				
-				var contentstr = '<div id = "content">' + 
-					'<div id="deliveryInfo">' + 
-					'</div>' + 
-					'<h1 id="firstHeading" class="firstHeading">Delivery Info</h1>' +  
-					'<p><b>Order ID: </b>' + '<?php echo $orderId?>' + '</p>' +
-					'<b>Current Status: </b>' + '<?php
-						if ($time <= 0) {
-							echo "delivery complete";
-						} else { 
-							echo "in transit";
-						}				
-					?>' + '</p>' +
-					'<b>Flight Speed:</b> 20 meters per second (45 miles per hour)</p>' + 
-					'<b>Delivery ETA: </b>' + '<?php
-						if ($time <=0) {
- 							echo "delivery complete.";
-						} else if ($time < 1) {
-							$time = intval($time * 60);
-							echo "estimated $time minutes";
-						} else {
-							$seconds = $time * 3600;
-							$hours = floor(($seconds % 86400) / 3600);
-							$minutes = floor(($seconds % 3600) / 60);
-							echo "estimated $time hours $minutes minutes";
-						}
-					?>' + ' until arrival</p>' +  
-					'</div>' + 
-					'</div>';
-
-				var infowindow = new google.maps.InfoWindow({
-					content: contentstr
-				}); 
-
-				marker.addListener('click', function() {
-					infowindow.open(map, marker);
-				});	
-	
-				// call to set remaining markers
-				setMarkers(map);
-				
-				// map styling
-				var styles = [
-					{
-					featureType: "all",
-					stylers: [
-						{ saturation: -80 }
-					]
-					},{
-					featureType: "road.highway",
-					elementType: "geometry",
-					stylers: [
-						{ hue: "00ffee" },
-						{ saturation: 50 }
-					]
+			// info window for drone marker
+			var contentstr = '<div id = "content">' + 
+				'<div id="deliveryInfo">' + 
+				'</div>' + 
+				'<h1 id="firstHeading" class="firstHeading">Delivery Info</h1>' +  
+				'<p><b>Order ID: </b>' + '<?php echo $orderId?>' + '</p>' +
+				'<b>Current Status: </b>' + '<?php
+					if ($time <= 0) {
+						echo "delivery complete";
+					} else { 
+						echo "in transit";
+					}				
+				?>' + '</p>' +
+				'<b>Flight Speed:</b> 20 meters per second (45 miles per hour)</p>' + 
+				'<b>Delivery ETA: </b>' + '<?php
+					if ($time <=0) {
+ 						echo "delivery complete.";
+					} else if ($time < 1) {
+						$time = intval($time * 60);
+						echo "estimated $time minutes";
+					} else {
+						$seconds = $time * 3600;
+						$hours = floor(($seconds % 86400) / 3600);
+						$minutes = floor(($seconds % 3600) / 60);
+						echo "estimated $time hours $minutes minutes";
 					}
+				?>' + ' until arrival</p>' +  
+				'</div>' + 
+				'</div>';
+
+			var infowindow = new google.maps.InfoWindow({
+				content: contentstr
+			}); 
+				
+			// listener to open info window.
+			marker.addListener('click', function() {
+				infowindow.open(map, marker);
+			});
+
+
+			// call to set remaining markers
+			setMarkers(map);
+			
+			// listener to recenter map with marker bounds after closing info window.
+			google.maps.event.addListener(infowindow, 'closeclick', function(){
+				setMarkers(map);
+                                map.panToBounds(bounds);
+
+                        });     
+                        				
+			// map styling
+			var styles = [
+				{
+				featureType: "all",
+				stylers: [
+					{ saturation: -80 }
+				]
+				},{
+				featureType: "road.highway",
+				elementType: "geometry",
+				stylers: [
+					{ hue: "00ffee" },
+					{ saturation: 50 }
+					]
+				}
 				];
-			// uncomment below to turn on optional map styling.
-				map.setOptions( {styles: styles});
+			// comment below to turn off optional map styling.
+			map.setOptions( {styles: styles});
 			}	
 			
 			// set sender/reciever markers
