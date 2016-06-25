@@ -1,24 +1,24 @@
 /*Change navbar colors*/
 
 .navbar-custom {
-  background-color: #acc4cc;
-  border-color: #000000;
+  background-color: #000000;
+  border-color: #c0c0c0;
 }
 
 .navbar-custom .nav > li > a:focus,
 .navbar-custom .nav > li > a:hover,
 .navbar-custom .nav > li.active > a {
-  background-color: #fa0a0a;
+  background-color: #fff;
   color: #000000;
 }
 
 .navbar-custom .navbar-nav > li > a {
-  color : #000000;
+  color : #c0c0c0;
 }
 
 
 .navbar-custom .navbar-brand {
-  color : #000000;
+  color : #c0c0c0;
 }
 
 
@@ -26,8 +26,8 @@
 /*Change button color */
 
 .btn {
-   background-color: #f7756d;
-   border-color: #000000;
+   background-color: #fff;
+   border-color: #c0c0c0;
 
 }
 
@@ -39,17 +39,17 @@
 }
  
 .btn-primary {
-    background: #f7756d;
-    color: #000000;
+    background: #000000;
+    color: #fff;
 }
  
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
-    background: #fa0a0a;
+    background: #fff;
     color: #000000;
 }
  
 .btn-primary:active, .btn-primary.active {
-    background: #007299;
+    background: #c0c0c0;
     box-shadow: none;
 }
 
