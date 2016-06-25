@@ -77,16 +77,13 @@ if(isset($_GET['OrderId'])) {
         <title>Tracking</title>
         <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
         <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
-	<style>
-      		#map {
-        		width: 600px;
-        		height: 500px;
-     		 }
-   	 </style>
+	<link rel="stylesheet" type="text/css" href="trackingstyle.css">
     </head>
     <body>
-	<h2>Drone Tracking Page</h2>
-	<div id="map"></div>
+	<div id= 'overlay'>
+     	    <h2>Delivery Status:</h2>Please Click the Drone Icon to view delivery details.
+	</div>
+	    <div id="map"></div>
     	<script>
 			
       		function initMap() {
@@ -173,7 +170,7 @@ if(isset($_GET['OrderId'])) {
 					}
 				];
 			// uncomment below to turn on optional map styling.
-			//	map.setOptions( {styles: styles});
+				map.setOptions( {styles: styles});
 			}	
 			
 			// set sender/reciever markers
@@ -221,15 +218,16 @@ if(isset($_GET['OrderId'])) {
 ?>
 	<div class="tracking">
 		<form action="" method="get">
-			<h3>Enter information to see the drone location</h3>
-			Tracking number:
+			<h4>Enter another order number to track a different delivery.</h4>
+			Order number:
 			<input type="text" name="OrderId">
 			<input type="submit">
 		</form>
 	</div>
-        <div class="container">
-        	<p>Click <a href="/">here</a> to go home.</p>
-        <div>
+	<div class="container">
+                <p>Click <a href="/">here</a> to go home.</p>
+        </div>
+
     </body>
 <html>
 <?php

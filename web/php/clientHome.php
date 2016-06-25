@@ -21,7 +21,15 @@ if (!empty($_POST["verifyid"]) && !empty($_POST["verifypass"]) && !empty($_POST[
    if ($res->num_rows ==1){
       $row = $res->fetch_assoc();
       if ($row["Id"]==$_SESSION["ClientID"]){
-         echo "success";
+         $num = (int) $_POST["drones"];
+         $sql_in = "INSERT INTO Drones (Id, Status, Details, Renter) VALUES (NULL, 0, 'Returning to Base', '$_SESSION[ClientID]');";
+         for ($i=1; $i<= $num; $i++){
+            if($conn->query($sql_in)){
+            }else{ 
+               echo "Error registering drones, please try again";
+            }
+         }
+         header("Location: /clientHome.php");
          exit();
       }else{
          echo "Logged in as different user, drone request failed";
@@ -291,7 +299,7 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
                   <div class="cols-sm-10">
                      <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="verifypass" placeholder="Password"></input>
+                        <input type="password" class="form-control" name="verifypass" placeholder="Password"></input>
                      </div>
                   </div>
                </div>
