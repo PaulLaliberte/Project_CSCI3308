@@ -219,7 +219,7 @@ if(isset($_GET['OrderId'])) {
 ?>
 	<div class="tracking">
 		<form action="" method="get">
-			<h4>Enter another order number to track a different delivery.</h4>
+			<h4>Enter an order number to track your delivery.</h4>
 			Order number:
 			<input type="text" name="OrderId">
 			<input type="submit">
