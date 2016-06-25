@@ -156,11 +156,18 @@ if(isset($_GET['OrderId'])) {
 			setMarkers(map);
 			
 			// listener to recenter map with marker bounds after closing info window.
-			google.maps.event.addListener(infowindow, 'closeclick', function(){
+			google.maps.event.addListener(infowindow, 'closeclick', function() {
 				setMarkers(map);
                                 map.panToBounds(bounds);
 
-                        });     
+                        });
+			
+			// listener to reset map if off_center after 7 seconds. 
+			map.addListener('center_changed', function() {
+				window.setTimeout(function() {
+					setMarkers(map);
+				}, 7000);
+			});     
                         				
 			// map styling
 			var styles = [
@@ -178,7 +185,7 @@ if(isset($_GET['OrderId'])) {
 					]
 				}
 				];
-			// comment below to turn off optional map styling.
+			// comment below to return to default ROADMAP styling.
 			map.setOptions( {styles: styles});
 			}	
 			
