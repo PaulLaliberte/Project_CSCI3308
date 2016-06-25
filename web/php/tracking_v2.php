@@ -59,7 +59,7 @@ if(isset($_GET['OrderId'])) {
 		echo "Database Error, please contact the developers.";
 	}
 		
-	//calculate ETA:
+	//calculate ETA: code adapted from http://www.movable-type.co.uk/scripts/latlong.html
 	$lon1 = $droneCoordinates[1];
 	$lon2 = $recieverCoordinates[1];
 	$lat1 = $droneCoordinates[0];
@@ -197,7 +197,6 @@ if(isset($_GET['OrderId'])) {
 							
 			function setMarkers(map) {
 				
-				// custom sender/reciever markes;
 				var bounds = new google.maps.LatLngBounds();
 
 				for (var i = 0; i < coords.length; i++) {
@@ -218,6 +217,7 @@ if(isset($_GET['OrderId'])) {
 					
 					bounds.extend(marker.position);				
 				}
+				// fit zoom map to fit all markers.
 				map.fitBounds(bounds);
 			}
 		
