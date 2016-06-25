@@ -1,7 +1,10 @@
 <?php
 session_start();
 
-$conn = mysqli_connect('0.0.0.0','root','root','project_db');
+$credentials = str_getcsv(file_get_contents('credentials.csv'));
+//echo '<pre>'; print_r($credentials); echo '</pre>';  //uncomment this line to see the structure of $credentials
+
+$conn = mysqli_connect($credentials[0],$credentials[1],$credentials[2],$credentials[3]);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
