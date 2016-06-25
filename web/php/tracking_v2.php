@@ -8,14 +8,10 @@ if(isset($_GET['OrderId'])) {
 
 	$orderId = $_GET["OrderId"];
 
-	$servername = "localhost";
-	$username = "root";
-	$password = "root";
-	$dbname = "project_db";
+	$credentials = str_getcsv(file_get_contents('credentials.csv'));
+	//echo '<pre>'; print_r($credentials); echo '</pre>';  //uncomment this line to see the structure of $credentials
 
-	// Create connection
-	// It is important to close the connection using the three lines at the end of this file for security reasons.
-	$conn = new mysqli($servername, $username, $password, $dbname);
+	$conn = mysqli_connect($credentials[0],$credentials[1],$credentials[2],$credentials[3]);						
 	// Check connection
 	if ($conn->connect_error) {
 		echo "connection error";
@@ -63,7 +59,7 @@ if(isset($_GET['OrderId'])) {
 		echo "Database Error, please contact the developers.";
 	}
 		
-	//calculate ETA:
+	//calculate ETA: code adapted from http://www.movable-type.co.uk/scripts/latlong.html
 	$lon1 = $droneCoordinates[1];
 	$lon2 = $recieverCoordinates[1];
 	$lat1 = $droneCoordinates[0];
@@ -93,89 +89,104 @@ if(isset($_GET['OrderId'])) {
 			
       		function initMap() {
 				
-				//set drone coordinates.
-				var droneLatLng = ['Delivery Location', <?php 
-				echo $droneCoordinates[0].", ".$droneCoordinates[1];?>];
+			//set drone coordinates.
+			var droneLatLng = ['Delivery Location', <?php 
+			echo $droneCoordinates[0].", ".$droneCoordinates[1];?>];
 			
-				//initiate map
-				var map = new google.maps.Map(document.getElementById('map'), {
-					zoom: 9,
-					center: {lat: droneLatLng[1], lng: droneLatLng[2]}
-				});
+			//initialize map
+			var map = new google.maps.Map(document.getElementById('map'), {
+				zoom: 9,
+				center: {lat: droneLatLng[1], lng: droneLatLng[2]}
+			});
 				
-				// custom drone marker
-				var drone = {
-				url:'https://cdn2.iconfinder.com/data/icons/modern-future-technology/128/drone-128.png',
-				scaledSize: new google.maps.Size(25,25)
-				};
+			// place  custom delivery marker
+			var drone = {
+			url:'https://cdn2.iconfinder.com/data/icons/modern-future-technology/128/drone-128.png',
+			scaledSize: new google.maps.Size(25,25)
+			};
 				
-				var marker = new google.maps.Marker({
-					position: {lat: droneLatLng[1], lng: droneLatLng[2]},
-					map: map,
-					icon: drone,
-					title: droneLatLng[0]
-				});
+			var marker = new google.maps.Marker({
+				position: {lat: droneLatLng[1], lng: droneLatLng[2]},
+				map: map,
+				icon: drone,
+				title: droneLatLng[0]
+			});
 				
-				// info window for drone marker
-				
-				var contentstr = '<div id = "content">' + 
-					'<div id="deliveryInfo">' + 
-					'</div>' + 
-					'<h1 id="firstHeading" class="firstHeading">Delivery Info</h1>' +  
-					'<p><b>Order ID: </b>' + '<?php echo $orderId?>' + '</p>' +
-					'<b>Current Status: </b>' + '<?php
-						if ($time <= 0) {
-							echo "delivery complete";
-						} else { 
-							echo "in transit";
-						}				
-					?>' + '</p>' +
-					'<b>Flight Speed:</b> 20 meters per second (45 miles per hour)</p>' + 
-					'<b>Delivery ETA: </b>' + '<?php
-						if ($time <=0) {
- 							echo "delivery complete.";
-						} else if ($time < 1) {
-							$time = intval($time * 60);
-							echo "estimated $time minutes";
-						} else {
-							$seconds = $time * 3600;
-							$hours = floor(($seconds % 86400) / 3600);
-							$minutes = floor(($seconds % 3600) / 60);
-							echo "estimated $time hours $minutes minutes";
-						}
-					?>' + ' until arrival</p>' +  
-					'</div>' + 
-					'</div>';
-
-				var infowindow = new google.maps.InfoWindow({
-					content: contentstr
-				}); 
-
-				marker.addListener('click', function() {
-					infowindow.open(map, marker);
-				});	
-	
-				// call to set remaining markers
-				setMarkers(map);
-				
-				// map styling
-				var styles = [
-					{
-					featureType: "all",
-					stylers: [
-						{ saturation: -80 }
-					]
-					},{
-					featureType: "road.highway",
-					elementType: "geometry",
-					stylers: [
-						{ hue: "00ffee" },
-						{ saturation: 50 }
-					]
+			// info window for drone marker
+			var contentstr = '<div id = "content">' + 
+				'<div id="deliveryInfo">' + 
+				'</div>' + 
+				'<h1 id="firstHeading" class="firstHeading">Delivery Info</h1>' +  
+				'<p><b>Order ID: </b>' + '<?php echo $orderId?>' + '</p>' +
+				'<b>Current Status: </b>' + '<?php
+					if ($time <= 0) {
+						echo "delivery complete";
+					} else { 
+						echo "in transit";
+					}				
+				?>' + '</p>' +
+				'<b>Flight Speed:</b> 20 meters per second (45 miles per hour)</p>' + 
+				'<b>Delivery ETA: </b>' + '<?php
+					if ($time <=0) {
+ 						echo "delivery complete.";
+					} else if ($time < 1) {
+						$time = intval($time * 60);
+						echo "estimated $time minutes";
+					} else {
+						$seconds = $time * 3600;
+						$hours = floor(($seconds % 86400) / 3600);
+						$minutes = floor(($seconds % 3600) / 60);
+						echo "estimated $time hours $minutes minutes";
 					}
+				?>' + ' until arrival</p>' +  
+				'</div>' + 
+				'</div>';
+
+			var infowindow = new google.maps.InfoWindow({
+				content: contentstr
+			}); 
+				
+			// listener to open info window.
+			marker.addListener('click', function() {
+				infowindow.open(map, marker);
+			});
+
+
+			// call to set remaining markers
+			setMarkers(map);
+			
+			// listener to recenter map with marker bounds after closing info window.
+			google.maps.event.addListener(infowindow, 'closeclick', function() {
+				setMarkers(map);
+                                map.panToBounds(bounds);
+
+                        });
+			
+			// listener to reset map if off_center after 7 seconds. 
+			map.addListener('center_changed', function() {
+				window.setTimeout(function() {
+					setMarkers(map);
+				}, 7000);
+			});     
+                        				
+			// map styling
+			var styles = [
+				{
+				featureType: "all",
+				stylers: [
+					{ saturation: -80 }
+				]
+				},{
+				featureType: "road.highway",
+				elementType: "geometry",
+				stylers: [
+					{ hue: "00ffee" },
+					{ saturation: 50 }
+					]
+				}
 				];
-			// uncomment below to turn on optional map styling.
-				map.setOptions( {styles: styles});
+			// comment below to return to default ROADMAP styling.
+			map.setOptions( {styles: styles});
 			}	
 			
 			// set sender/reciever markers
@@ -186,7 +197,6 @@ if(isset($_GET['OrderId'])) {
 							
 			function setMarkers(map) {
 				
-				// custom sender/reciever markes;
 				var bounds = new google.maps.LatLngBounds();
 
 				for (var i = 0; i < coords.length; i++) {
@@ -207,6 +217,7 @@ if(isset($_GET['OrderId'])) {
 					
 					bounds.extend(marker.position);				
 				}
+				// fit zoom map to fit all markers.
 				map.fitBounds(bounds);
 			}
 		
@@ -223,7 +234,7 @@ if(isset($_GET['OrderId'])) {
 ?>
 	<div class="tracking">
 		<form action="" method="get">
-			<h4>Enter another order number to track a different delivery.</h4>
+			<h4>Enter an order number to track your delivery.</h4>
 			Order number:
 			<input type="text" name="OrderId">
 			<input type="submit">

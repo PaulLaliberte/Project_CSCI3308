@@ -5,14 +5,10 @@ $recieverCoordinates = array(0,0);
 
 $orderId = $_GET["OrderId"];
 
-$servername = "localhost";
-$username = "paul";
-$password = "paul";
-$dbname = "project_db";
+$credentials = str_getcsv(file_get_contents('credentials.csv'));
+//echo '<pre>'; print_r($credentials); echo '</pre>';  //uncomment this line to see the structure of $credentials
 
-// Create connection
-// It is important to close the connection using the three lines at the end of this file for security reasons.
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = mysqli_connect($credentials[0],$credentials[1],$credentials[2],$credentials[3]);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
