@@ -9,10 +9,14 @@
 
 if(isset($_GET['OrderId'])) {
 
+<<<<<<< HEAD
 
 	$senderCoordinates = array(0,0);
 
 
+=======
+	$senderCoordinates = array(0,0);  
+>>>>>>> 6feb91b408a84d15a80dc65bd80b88526457ad53
 	$recieverCoordinates = array(0,0);
 	$droneCoordinates = array(0,0);
 
@@ -91,7 +95,10 @@ if(isset($_GET['OrderId'])) {
 	<link rel="stylesheet" type="text/css" href="trackingstyle.css">
     </head>
     <body>
-	<div id= 'overlay'>
+	<style type="text/css">
+	body { background: lightgray !important; }
+	</style>
+	<div id= 'title'>
      	    <h2>Delivery Status:</h2>Please Click the Drone Icon to view delivery details.
 	</div>
 	    <div id="map"></div>
@@ -122,7 +129,7 @@ if(isset($_GET['OrderId'])) {
 				title: droneLatLng[0]
 			});
 				
-			// info window for drone marker
+			// info window for delivery marker
 			var contentstr = '<div id = "content">' + 
 				'<div id="deliveryInfo">' + 
 				'</div>' + 
@@ -146,7 +153,7 @@ if(isset($_GET['OrderId'])) {
 						$seconds = $time * 3600;
 						$hours = floor(($seconds % 86400) / 3600);
 						$minutes = floor(($seconds % 3600) / 60);
-						echo "estimated $time hours $minutes minutes";
+						echo "estimated $hours hours $minutes minutes";
 					}
 				?>' + ' until arrival</p>' +  
 				'</div>' + 
@@ -172,7 +179,7 @@ if(isset($_GET['OrderId'])) {
 
                         });
 			
-			// listener to reset map if off_center after  seconds. 
+			// listener to reset map if off_center after 20  seconds. 
 			map.addListener('center_changed', function() {
 				window.setTimeout(function() {
 					setMarkers(map);
@@ -199,12 +206,12 @@ if(isset($_GET['OrderId'])) {
 			map.setOptions( {styles: styles});
 			}	
 			
-			// set sender/reciever markers
 			var coords = [
 				['Sender Location', <?php echo $senderCoordinates[0].", ".$senderCoordinates[1]; ?>, 2, 'https://cdn1.iconfinder.com/data/icons/buildings-landmarks-set-2/96/Post-Office-512.png'],
 				['Reciever Location', <?php echo $recieverCoordinates[0].", ".$recieverCoordinates[1]; ?>, 3, 'http://simpleicon.com/wp-content/uploads/home-5.png'] 
 			];
-							
+			
+			// set sender/reciever lat/long markers
 			function setMarkers(map) {
 				
 				var bounds = new google.maps.LatLngBounds();
@@ -243,6 +250,13 @@ if(isset($_GET['OrderId'])) {
 }
 ?>
 	<div class="tracking">
+		<style type="text/css">
+			div.tracking {        
+				text-align: center;
+        			font-family: "Lucida Console", Lucida, Monospace;
+				margin: 25px;
+ 			};
+		</style>
 		<form action="" method="get">
 			<h4>Enter an order number to track your delivery.</h4>
 			Order number:
@@ -251,6 +265,12 @@ if(isset($_GET['OrderId'])) {
 		</form>
 	</div>
 	<div class="container">
+		<style type="text/css">
+			div.container { 
+				font-family: "Lucida Console", Lucida, Monospace;
+				text-align: center;
+			};
+		</style>
                 <p>Click <a href="/">here</a> to go home.</p>
         </div>
 
