@@ -51,7 +51,7 @@ if (!empty($_POST["verifyid"]) && !empty($_POST["verifypass"]) && !empty($_POST[
             echo "Failed to remove drones";
          }
       }
-      header("Location:/clientHome.php");
+      header("Location: /https://www.paypal.com/cgi-bin/webscr");
       exit();
 
    }
@@ -112,7 +112,7 @@ if (!empty($_POST["verifyid"]) && !empty($_POST["verifypass"]) && !empty($_POST[
          </div>
          <div class="main-login main-center">
             <div class="form-horizontal">
-            <form action="clientHome.php" method="POST">
+            <form action="registerDrones.php" method="POST">
                <div class="form-group">
                   <label for="verifyid" class="cols-sm-2 control-label">Verify Business ID</label>
                   <div class="cols-sm-10">
@@ -141,20 +141,20 @@ if (!empty($_POST["verifyid"]) && !empty($_POST["verifypass"]) && !empty($_POST[
                   </div>
                </div>
                <div class="form-group" style="width:40%;float:right">
-                  <label for="cost" class = "cols-sm-2 control-label">Estimated Cost</label>
+                  <label for="cost" class = "cols-sm-2 control-label">Monthly Cost</label>
                   <div class = "cols-sm-10">
                      <p id='cost'></p>
                   </div>
                </div><br><br>
-<div style="float:center"> 
+ 
+
+<!--  From paypal button creator -->
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 <input type="hidden" name="cmd" value="_s-xclick">
 <input type="hidden" name="hosted_button_id" value="SZX68WM8AQN7S">
-
 <input type="hidden" name="currency_code" value="USD">
 <input style="display: block; margin: 0 auto;" type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-</div>
-            </form>
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">           </form>
             </div>
          </div>
       </div>
