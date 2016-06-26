@@ -92,7 +92,7 @@ if (!empty($_POST['name'])&&!empty($_POST['user'])&&!empty($_POST['address'])){
             </div>
          <div>
 			<div class="main-login main-center">
-				<div class="form-horizontal">
+				<div class="form-horizontal" style="width:75%; margin-left:auto; margin-right:auto;">
                <form method="POST" action="register.php">
 					<div class="form-group">
 						<label for="name" class="cols-sm-2 control-label">Name</label>
