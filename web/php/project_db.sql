@@ -19,7 +19,7 @@ INSERT INTO `Clients` (`Id`, `Name`, `Password`, `Business`, `Lat`, `Lon` ) VALU
 (NULL, 'Bill Christie', 'password','BTC', 39.8028, -105.0875);
 
 CREATE TABLE IF NOT EXISTS `Orders` (
-`OrderId` int(6) UNIQUE auto_increment,
+`Id` int(6) UNIQUE auto_increment,
 `ClientId` int(2) NOT NULL,
 `DroneId` int(6) NULL,
 `OrderTimestamp` int(32) NOT NULL,
@@ -27,10 +27,10 @@ CREATE TABLE IF NOT EXISTS `Orders` (
 `Lon` float NOT NULL,
 `Status` int(1) NOT NULL,
 `TimeOut` int(32) NULL,
-PRIMARY KEY (`OrderId`)
+PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT = 121111;
 
-INSERT INTO `Orders` (`OrderId`, `ClientId`, `DroneId`, `OrderTimestamp`, `Lat`, `Lon`, `Status`, `TimeOut`) VALUES
+INSERT INTO `Orders` (`Id`, `ClientId`, `DroneId`, `OrderTimestamp`, `Lat`, `Lon`, `Status`, `TimeOut`) VALUES
 (NULL, 1, 111111, 1466682030, 39.8367, -105.0372, 1, 1466682930),
 (NULL, 2, 111113, 1466030713, 39.9778, -105.1319, 1, 1466031613),
 (NULL, 3, 111115, 1466126100, 39.9614, -105.5108, 1, 1466127000),
