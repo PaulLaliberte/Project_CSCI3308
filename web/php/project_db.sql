@@ -6,12 +6,12 @@ CREATE TABLE IF NOT EXISTS `Clients` (
 `Name` varchar(40) NOT NULL,
 `Password` varchar(20) NOT NULL,
 `Business` varchar(40) NOT NULL,
-`SenderLat` float NOT NULL,
-`SenderLong` float NOT NULL,
+`Lat` float NOT NULL,
+`Lon` float NOT NULL,
 PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
-INSERT INTO `Clients` (`Id`, `Name`, `Password`, `Business`, `SenderLat`, `SenderLong` ) VALUES
+INSERT INTO `Clients` (`Id`, `Name`, `Password`, `Business`, `Lat`, `Lon` ) VALUES
 (NULL, 'Will Christie', 'password', 'WTC', 39.7555, -105.2211),
 (NULL, 'Paul Laliberte', 'password', 'PRKL', 39.7392, -104.9903),
 (NULL, 'Kylee Budai', 'password', 'KMB', 30.0150, -105.2705),
@@ -23,14 +23,14 @@ CREATE TABLE IF NOT EXISTS `Orders` (
 `ClientId` int(2) NOT NULL,
 `DroneId` int(6) NULL,
 `OrderTimestamp` int(32) NOT NULL,
-`RecieverLat` float NOT NULL,
-`RecieverLong` float NOT NULL,
+`Lat` float NOT NULL,
+`Lon` float NOT NULL,
 `Status` int(1) NOT NULL,
 `TimeOut` int(32) NULL,
 PRIMARY KEY (`OrderId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT = 121111;
 
-INSERT INTO `Orders` (`OrderId`, `ClientId`, `DroneId`, `OrderTimestamp`, `RecieverLat`, `RecieverLong`, `Status`, `TimeOut`) VALUES
+INSERT INTO `Orders` (`OrderId`, `ClientId`, `DroneId`, `OrderTimestamp`, `Lat`, `Lon`, `Status`, `TimeOut`) VALUES
 (NULL, 1, 111111, 1466682030, 39.8367, -105.0372, 1, 1466682930),
 (NULL, 2, 111113, 1466030713, 39.9778, -105.1319, 1, 1466031613),
 (NULL, 3, 111115, 1466126100, 39.9614, -105.5108, 1, 1466127000),
