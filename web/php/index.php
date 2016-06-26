@@ -18,8 +18,8 @@ if (!empty($_POST['user'])){
       header("Location: /clientHome.php");
       exit();
    }else{
-      $_SESSION["Error"] = TRUE;
-      header("Location: /");
+      $_SESSION['Error'] = TRUE;
+   //   header("Location: /");
    }
 }
 ?>
@@ -95,11 +95,11 @@ if (!empty($_POST['user'])){
                      <input id="button" type="submit" class="btn btn-primary btn-lg btn-block" name="submit" value="Login">
                   </div>
                   <div id = "Error">
-                  <?php if(!empty($_SESSION['Error'])){
-                     echo "Error";
+                  <?php if($_SESSION['Error']){
+                     echo "Unsuccessful log in, please try again";
+                     $_SESSION['Error'] = FALSE;
                   } ?>
                   </div>
-                  <?php unset($_SESSION['Error']);?>
  
                  <div class="login-register">
                         <li> <a href="/register.php">Register</a></li>
