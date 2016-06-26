@@ -208,7 +208,7 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
          ?>			
 			</table><br><br>
 	
-<div class="container">
+<div class="container" style="width:60%;">
         <div class="row main">
           <div class="panel-heading">
             <div class="panel-title text-center">
@@ -317,7 +317,7 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
       </div>
    </div>
 </div>
-  
+
         <div class="container" id="wrapper">
           <div id="leftcolumn">
           <div class="panel-heading">
