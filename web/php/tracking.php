@@ -16,7 +16,6 @@
 	<h3>Click <a href="/tracking_v2.php">here</a> for an updated version of this page.</h3>
 	<div id="map"></div>
     	<script>
-			
       		function initMap() {
 				
 				var droneLatLng = ['Delivery Location', 39.7555, -105.2211];

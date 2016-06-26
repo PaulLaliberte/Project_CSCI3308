@@ -1,5 +1,11 @@
 <?php
 
+/**
+* @Author Paul, Will, Nicholas, Kylee
+* @file
+* Test file intended for doxygen testing
+*/
+
 date_default_timezone_set('America/Denver');
 
 session_start();
@@ -117,7 +123,32 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 			.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
 			.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
 			.tg .tg-yw4l{vertical-align:top}
+      #wrapper {
+     width: 1005px;
+     margin: 20 auto;
+}
+#leftcolumn, #rightcolumn {
+    border: 1px solid white;
+    float: left;
+    min-height: 450px;
+}
+#leftcolumn {
+     width: 30%;
+     /*border-right: 2px solid black;*/
+     margin-right: 5%;
+}
+#rightcolumn {
+     width: 60%;
+}
 		</style>
+                           <script type="text/javascript">
+                     function calculateCost(){
+                        var num = document.getElementById('drones').value;
+                        var output = num*250;
+                        document.getElementById('cost').innerHTML = "$"+output+".00";
+                     }
+                     </script>
+
   </head>
 <body>
    <div class = "navbar navbar-inverse navbar-custom" role="navigation">
@@ -133,8 +164,9 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
     </div>
     <div class="navbar-collapse">
    <ul class="nav navbar-nav">
-      <li><a href="/orderPage.php">Place Order</a></li>
+      <li><a href="/clientHome.php#order">Place Order</a></li>
       <li><a href="/clientHome.php#drone">Request/Remove Drones</a></li>
+      <li><a href="/logout.php" style="float:right;">Log Out</a></li>
    </ul>
     </div>
     </div>
@@ -183,8 +215,124 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
          ?>			
 			</table><br><br>
 	
-        <div class="container" style="margin-left:auto;margin-right:auto;text-align:center;">
-            <h4>All Rented Drones</h4><br>
+<div class="container" style="width:60%;">
+        <div class="row main">
+          <div class="panel-heading">
+            <div class="panel-title text-center">
+               <div name="order" id ="order" ><h3 class="title">Place Order</h3></div>
+               <hr />
+            </div>
+         </div>
+         <div class="main-login main-center">
+            <div class="form-horizontal">
+          <form action="" method="GET" id="orderForm">
+               <div class="form-group">
+                  <label for="address" class="cols-sm-2 control-label">Recipient Street</label>
+                  <div class="cols-sm-10">
+                     <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" name="address" placeholder="Street" autocomplete="street-address"></input>
+                     </div>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="city" class="cols-sm-2 control-label">Recipient City</label>
+                  <div class="cols-sm-10">
+                     <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" name="city" placeholder="City" autocomplete="address-level2"></input>
+                     </div>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="state" class="cols-sm-2 control-label">Recipient State</label>
+                  <div class="cols-sm-10">
+                     <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input list="state" class="form-control" name="state" placeholder="State" autocomplete="address-level1"></input>
+                     </div>
+                  </div>
+               </div>
+            <datalist id='state' name="state">
+            <option value="Alaska">
+            <option value="Arizona">
+            <option value="Arkansas">
+            <option value="California">
+            <option value="Colorado">
+            <option value="Connecticut">
+            <option value="Delaware">
+            <option value="District Of Columbia">
+            <option value="Florida">
+            <option value="Georgia">
+            <option value="Hawaii">
+            <option value="Idaho">
+            <option value="Illinois">
+            <option value="Indiana">
+            <option value="Iowa">
+            <option value="Kansas">
+            <option value="Kentucky">
+            <option value="Louisiana">
+            <option value="Maine">
+            <option value="Maryland">
+            <option value="Massachusetts">
+            <option value="Michigan">
+            <option value="Minnesota">
+            <option value="Mississippi">
+            <option value="Missouri">
+            <option value="Montana">
+            <option value="Nebraska">
+            <option value="Nevada">
+            <option value="New Hampshire">
+            <option value="New Jersey">
+            <option value="New Mexico">
+            <option value="New York">
+            <option value="North Carolina">
+            <option value="North Dakota">
+            <option value="Ohio">
+            <option value="Oklahoma">
+            <option value="Oregon">
+            <option value="Pennsylvania">
+            <option value="Rhode Island">
+            <option value="South Carolina">
+            <option value="South Dakota">
+            <option value="Tennessee">
+            <option value="Texas">
+            <option value="Utah">
+            <option value="Vermont">
+            <option value="Virginia">
+            <option value="Washington">
+            <option value="West Virginia">
+            <option value="Wisconsin">
+            <option value="Wyoming" name="WY">
+            </datalist><br>
+               <div class="form-group">
+                  <label for="weight" class="cols-sm-2 control-label">Package Weight</label>
+                  <div class="cols-sm-10">
+                     <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input list="text" class="form-control" name="weight" placeholder="Weight(kg)"></input>
+                     </div>
+                  </div>
+               </div>
+          <!--Pickup Time: <input type="datetime-local" name="pickupTime" value="<?php echo date("Y-m-d\TH:i:s"); ?>"><br>-->
+          Shipping Priority: <input type="radio" name="priority" checked="checked" value="high">High<br>
+               <div class="form-group ">
+                     <input type="submit" class="btn btn-primary btn-lg btn-block" value="Place Order">
+                  </div>
+        </form>
+      </div>
+      </div>
+   </div>
+</div>
+
+        <div class="container" id="wrapper">
+          <div id="leftcolumn">
+          <div class="panel-heading">
+            <div class="panel-title text-center">
+               <div name="drone" id ="drone" ><h3 class="title">All Rented Drones</h3></div>
+               <hr />
+            </div>
+         </div>
             <table class="tg">
 			<tr>
 			<th class="tg-yw4l">Drone ID</th>
@@ -207,9 +355,9 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
          }
 
          ?>			
-			</table><br><br>
+			</table></div>
 				
-      <div class="container">
+      <div class="container" id="rightcolumn">
         <div class="row main">
           <div class="panel-heading">
             <div class="panel-title text-center">
@@ -238,15 +386,32 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
                      </div>
                   </div>
                </div>
-               <div class="form-group">
+               <div class="form-group" style="width:70%;float:left;">
                   <label for="drones" class="cols-sm-2 control-label">Number of Drones to Request/Remove</label>
                   <div class="cols-sm-10">
                      <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="drones" placeholder="Positive number to add drones, negative to remove"></input>
+                        <input onchange="calculateCost()" type="text" class="form-control" id='drones' name="drones" placeholder="Positive to add, negative to remove"></input>
                      </div>
                   </div>
-               </div>	
+               </div>
+               <div class="form-group" style="width:40%;float:right">
+                  <label for="cost" class = "cols-sm-2 control-label">Monthly Cost</label>
+                  <div class = "cols-sm-10">
+                     <p id='cost'></p>
+                  </div>
+               </div><br><br>
+
+
+<!--  From paypal button creator -->
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="SZX68WM8AQN7S">
+<input type="hidden" name="currency_code" value="USD">
+<input style="display: block; margin: 0 auto;" type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+
                <div class="form-group ">
                      <input type="submit" class="btn btn-primary btn-lg btn-block" value="Process Request">
                </div>
@@ -255,8 +420,8 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
          </div>
       </div>
    </div>
-
-			<div>
+  </div>
+			<div style="width: 100%;">
             <p>Click <a href="/clientHome.php">here</a> to go back to top.</p>
         </div>
     </body>
