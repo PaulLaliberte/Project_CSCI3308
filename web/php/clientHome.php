@@ -26,7 +26,7 @@ if (!empty($_POST["verifyid"]) && !empty($_POST["verifypass"]) && !empty($_POST[
       $row = $res->fetch_assoc();
       if ($row["Id"]==$_SESSION["ClientID"]){
          $num = (int) $_POST["drones"];
-         $sql_in = "INSERT INTO Drones (Id, Status, Details, Renter) VALUES (NULL, 0, 'Returning to Base', '$_SESSION[ClientID]');";
+         $sql_in = "INSERT INTO Drones (Id, Status, Details, Renter) VALUES (NULL, 4, 'Available', '$_SESSION[ClientID]');";
          for ($i=1; $i<= $num; $i++){
             if($conn->query($sql_in)){
             }else{ 
@@ -61,7 +61,7 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 	}
 
 	//get receiver location, drone position, and drone launch time
-	$sql = "SELECT Id FROM Drones WHERE Status=0 AND Renter = '$_SESSION[ClientID]' LIMIT 1;"; //This is a bug because 0 is currently for "Returning to Base", but it should be "drone availiable".
+	$sql = "SELECT Id FROM Drones WHERE Status=4 AND Renter = '$_SESSION[ClientID]' LIMIT 1;"; //This is a bug because 0 is currently for "Returning to Base", but it should be "drone availiable".
 	$result = $conn->query($sql);
 
 	if ($result->num_rows == 1) { 
@@ -74,10 +74,17 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 	}
 	$orderTime = time();
 	//Insert the order into the database
-	$sql = 'INSERT INTO Orders (OrderId, ClientId, DroneId, OrderTimestamp, RecieverLat, RecieverLong, Status, TimeOut, DroneLat, DroneLong) VALUES (NULL, '.$_SESSION["ClientID"].', '.$droneID.', '.$orderTime.', '.$recieverLat.', '.$recieverLon.', 0, NULL, NULL, NULL);';
+	$sql = 'INSERT INTO Orders (OrderId, ClientId, DroneId, OrderTimestamp, RecieverLat, RecieverLong, Status, TimeOut, DroneLat, DroneLong) VALUES (NULL, '.$_SESSION["ClientID"].', '.$droneID.', '.$orderTime.', '.$recieverLat.', '.$recieverLon.', 1, NULL, NULL, NULL);';
 
 	if ($conn->query($sql) === TRUE) {
 		echo 'Your Order, #'.$conn->insert_id.', has been placed.  <br><a href="/clientHome.php">Click here to go back.</a>';
+      //update drone status
+      $status = "UPDATE Drones SET Status = 1 WHERE Id = '$_SESSION[ClientID]';";
+      if ($conn->query($status)){
+         echo "success";
+      }else{
+         echo "Failed to update drone status";
+      }
 	} else {
 		echo "Error: " . $sql . "<br>" . $conn->error;
 		exit();
@@ -121,7 +128,7 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 </div>
 
         <div class="container" style="margin-left:auto;margin-right:auto;text-align:center;">
-            <h1>Client Home</h2><br>
+            <h2>Client Home</h2><br>
             <p>Click on the Order IDs to see where the drones carrying those packages are.</p>
             <table class="tg">
 			<tr>
@@ -157,6 +164,32 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 				}
 			} else{
             echo 'error accessing database';
+         }
+
+         ?>			
+			</table><br><br>
+	
+        <div class="container" style="margin-left:auto;margin-right:auto;text-align:center;">
+            <h4>All Rented Drones</h4><br>
+            <table class="tg">
+			<tr>
+			<th class="tg-yw4l">Drone ID</th>
+			<th class="tg-yw4l">Drone Status</th>
+			</tr>
+			<?php
+			$sql = "SELECT * FROM Drones WHERE Renter = '$_SESSION[ClientID]';";
+         $result = $conn->query($sql);
+
+			if ($result->num_rows > 0) {
+				// output data of each row
+				while($row = $result->fetch_assoc()) {
+					echo '<tr>
+					<td class="tg-yw4l">'.$row["Id"].'</td>
+					<td class="tg-yw4l">'.$row["Details"].'</td>
+					</tr>';
+				}
+			} else{
+            echo 'You are currently not renting any drones';
          }
 
          ?>			

@@ -53,11 +53,11 @@ PRIMARY KEY (`Id`)
 INSERT INTO `Drones` (`Id`, `Status`, `Details`,`Renter`) VALUES
 (NULL, 1, 'In Transit',01),
 (NULL, 1, 'In Transit',03),
-(NULL, 0, 'Returning to Base',02),
-(NULL, 0, 'Returning to Base',05),
+(NULL, 0, 'Processing',02),
+(NULL, 0, 'Processing',05),
 (NULL, 1, 'In Transit',01),
 (NULL, 1, 'In Transit',02),
-(NULL, 0, 'Returning to Base',03),
+(NULL, 0, 'Processing',03),
 (NULL, 2, 'Offline',04);
 
 
@@ -68,6 +68,8 @@ PRIMARY KEY (`Status`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `OrderStatus` (`Status`, `Description`) VALUES
-(0, 'processing'),
-(1, 'in transit'),
-(2, 'delivered');
+(NULL, 'Processing'),
+(NULL, 'In Transit'),
+(NULL, 'Delivered'),
+(NULL, 'Available');
+
