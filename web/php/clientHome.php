@@ -1,5 +1,11 @@
 <?php
 
+/**
+* @Author Paul, Will, Nicholas, Kylee
+* @file
+* Test file intended for doxygen testing
+*/
+
 date_default_timezone_set('America/Denver');
 
 session_start();

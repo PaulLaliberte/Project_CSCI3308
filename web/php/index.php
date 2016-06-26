@@ -1,16 +1,23 @@
 <?php
+
+/**
+* @Author Paul, Will, Nicholas, Kylee
+* @file
+* Test file intended for doxygen testing
+*/
+
 session_start();
 
 $credentials = str_getcsv(file_get_contents('credentials.csv'));
-//echo '<pre>'; print_r($credentials); echo '</pre>';  //uncomment this line to see the structure of $credentials
-
 $conn = mysqli_connect($credentials[0],$credentials[1],$credentials[2],$credentials[3]);
-if ($conn->connect_error) {
+
+if ($conn->connect_error) {   //get connection
     die("Connection failed: " . $conn->connect_error);
 }
 
 if (!empty($_POST['user'])){
-   $sql = "SELECT Id FROM Clients WHERE Business='$_POST[user]'AND Password ='$_POST[pass]' LIMIT 1";
+   $sql = "SELECT Id FROM Clients WHERE Business='$_POST[user]'AND Password ='$_POST[pass]' LIMIT 1"; //sql query
+
    $res = $conn->query($sql);
    if($res->num_rows==1){
       $row = $res->fetch_assoc();

@@ -1,4 +1,11 @@
 <?php
+
+/**
+* @Author Paul, Will, Nicholas, Kylee
+* @file
+* Test file intended for doxygen testing
+*/
+
 session_start();
 // remove all session variables
 session_unset(); 

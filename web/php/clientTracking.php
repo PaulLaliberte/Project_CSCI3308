@@ -1,5 +1,11 @@
 <?php
 
+/**
+* @Author Paul, Will, Nicholas, Kylee
+* @file
+* Test file intended for doxygen testing
+*/
+
 $senderCoordinates = array(0,0);  // order lat, lon
 $recieverCoordinates = array(0,0);
 

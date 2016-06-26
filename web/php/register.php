@@ -1,5 +1,10 @@
 <?php
-//register page
+
+/**
+* @Author Paul, Will, Nicholas, Kylee
+* @file
+* Test file intended for doxygen testing
+*/
 
 $credentials = str_getcsv(file_get_contents('credentials.csv'));
 //echo '<pre>'; print_r($credentials); echo '</pre>';  //uncomment this line to see the structure of $credentials

@@ -1,5 +1,5 @@
 <?php
-#("redirect.php");
+
 ?>
 
 <!-- Code adapted from http://earlysandwich.com/programming/php/integrate-paypal-payment-system-website-php-mysql-261/

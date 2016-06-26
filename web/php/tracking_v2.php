@@ -1,8 +1,18 @@
 <?php
 
+/**
+* @Author Paul, Will, Nicholas, Kylee
+* @file
+* Test file intended for doxygen testing
+*/
+
+
 if(isset($_GET['OrderId'])) {
 
-	$senderCoordinates = array(0,0);  // order lat, lon
+
+	$senderCoordinates = array(0,0);
+
+
 	$recieverCoordinates = array(0,0);
 	$droneCoordinates = array(0,0);
 
