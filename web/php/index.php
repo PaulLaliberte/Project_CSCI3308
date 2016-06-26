@@ -18,8 +18,8 @@ if (!empty($_POST['user'])){
       header("Location: /clientHome.php");
       exit();
    }else{
-      echo "Login unsuccessful";
-      exit();
+      $_SESSION["Error"] = TRUE;
+      header("Location: /");
    }
 }
 ?>
@@ -57,6 +57,7 @@ if (!empty($_POST['user'])){
   </div>
 </div>
 
+ 
 <div class="container">
    <div class="page-header">
      <h1 class="text-center">Welcome to DPDS</h1>
@@ -90,14 +91,21 @@ if (!empty($_POST['user'])){
                         </div>
                      </div>
                   </div>
-                  <div class="form-group ">
+                 <div class="form-group ">
                      <input id="button" type="submit" class="btn btn-primary btn-lg btn-block" name="submit" value="Login">
                   </div>
-                  <div class="login-register">
+                  <div id = "Error">
+                  <?php if(!empty($_SESSION['Error'])){
+                     echo "Error";
+                  } ?>
+                  </div>
+                  <?php unset($_SESSION['Error']);?>
+ 
+                 <div class="login-register">
                         <li> <a href="/register.php">Register</a></li>
                   </div>
 
-                                   </form>
+               </form>
             </div>
          </div>
       </div>
