@@ -10,5 +10,5 @@ To get started:
 
 1. Please view the demo video showing features and navigation.
 2. To view page:
-   Launch the server with the following command in the web/php/ directory: $ php -S localhost:8080
-   Copy http://localhost:8080 and paste into browser.
+   1. Launch the server with the following command in the web/php/ directory: $ php -S localhost:8080
+   2. Copy http://localhost:8080 and paste into browser.
