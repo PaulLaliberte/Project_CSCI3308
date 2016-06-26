@@ -22,26 +22,40 @@ if ($conn->connect_error) {
 if (!empty($_POST["verifyid"]) && !empty($_POST["verifypass"]) && !empty($_POST["drones"])){
    $sql = "SELECT Id FROM Clients WHERE Business = '$_POST[verifyid]' AND Password = '$_POST[verifypass]';";
    $res = $conn->query($sql);
-   if ($res->num_rows ==1){
-      $row = $res->fetch_assoc();
-      if ($row["Id"]==$_SESSION["ClientID"]){
-         $num = (int) $_POST["drones"];
-         $sql_in = "INSERT INTO Drones (Id, Status, Details, Renter) VALUES (NULL, 4, 'Available', '$_SESSION[ClientID]');";
-         for ($i=1; $i<= $num; $i++){
-            if($conn->query($sql_in)){
-            }else{ 
-               echo "Error registering drones, please try again";
+   $num = (int) $_POST["drones"];
+   if($num > 0){
+      if ($res->num_rows ==1){
+         $row = $res->fetch_assoc();
+         if ($row["Id"]==$_SESSION["ClientID"]){
+            $sql_in = "INSERT INTO Drones (Id, Status, Details, Renter) VALUES (NULL, 4, 'Available', '$_SESSION[ClientID]');";
+            for ($i=1; $i<= $num; $i++){
+               if($conn->query($sql_in)){
+               }else{ 
+                  echo "Error registering drones, please try again";
+               }
             }
+            header("Location: /clientHome.php");
+            exit();
+         }else{
+            echo "Logged in as different user, drone request failed";
+            exit();
          }
-         header("Location: /clientHome.php");
-         exit();
       }else{
-         echo "Logged in as different user, drone request failed";
+         echo "Drone request failed";
          exit();
       }
    }else{
-      echo "Drone request failed";
+      $num = -$num;
+      $sql_out = "DELETE FROM Drones WHERE Renter = '$_SESSION[ClientID]' AND Status = 4 LIMIT 1;";
+      for($i=1;$i<=$num;$i++){
+         if($conn->query($sql_out)){
+         }else{
+            echo "Failed to remove drones";
+         }
+      }
+      header("Location:/clientHome.php");
       exit();
+      
    }
 }
 
@@ -120,7 +134,7 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
     <div class="navbar-collapse">
    <ul class="nav navbar-nav">
       <li><a href="/orderPage.php">Place Order</a></li>
-      <li><a href="/clientHome.php#drone">Request Drones</a></li>
+      <li><a href="/clientHome.php#drone">Request/Remove Drones</a></li>
    </ul>
     </div>
     </div>
@@ -199,7 +213,7 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
         <div class="row main">
           <div class="panel-heading">
             <div class="panel-title text-center">
-               <div name="drone" id ="drone" ><h3 class="title">Request Drones</h3></div>
+               <div name="drone" id ="drone" ><h3 class="title">Request/Remove Drones</h3></div>
                <hr />
             </div>
          </div>
@@ -225,11 +239,11 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
                   </div>
                </div>
                <div class="form-group">
-                  <label for="drones" class="cols-sm-2 control-label">Number of Drones to Request</label>
+                  <label for="drones" class="cols-sm-2 control-label">Number of Drones to Request/Remove</label>
                   <div class="cols-sm-10">
                      <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="drones" placeholder="Number"></input>
+                        <input type="text" class="form-control" name="drones" placeholder="Positive number to add drones, negative to remove"></input>
                      </div>
                   </div>
                </div>	
