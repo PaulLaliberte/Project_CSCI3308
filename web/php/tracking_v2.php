@@ -162,11 +162,11 @@ if(isset($_GET['OrderId'])) {
 
                         });
 			
-			// listener to reset map if off_center after 7 seconds. 
+			// listener to reset map if off_center after  seconds. 
 			map.addListener('center_changed', function() {
 				window.setTimeout(function() {
 					setMarkers(map);
-				}, 7000);
+				}, 20000);
 			});     
                         				
 			// map styling
