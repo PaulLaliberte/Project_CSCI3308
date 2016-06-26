@@ -12,4 +12,4 @@ Our vision is to create the most user-friendly UAS (drone) package delivery mana
 3. To view page:
    1. Launch the server with the following command in the web/php/ directory: $ php -S localhost:8080
    2. Copy http://localhost:8080 and paste into browser.
-   3. If you would like to login as a demo user: Username: WTC Password: password
+   3. If you would like to login as a demo user to view current features and client experience: Username: WTC Password: password
