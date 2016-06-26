@@ -37,12 +37,12 @@ if (!empty($_POST['name'])&&!empty($_POST['user'])&&!empty($_POST['address'])){
          header("Location: /");
          exit();
       }else{
-         $error_exists = TRUE;
-         $Error = "Failed registration, please try again";
+         echo "Failed registration, please try again";
+         exit();
       }
    }else{
-      $error_exists == TRUE;
-      $Error =  "Username already in use, please register again";
+      echo "Username already in use, please register again";
+      exit();
    }
 }
 
@@ -132,12 +132,6 @@ if (!empty($_POST['name'])&&!empty($_POST['user'])&&!empty($_POST['address'])){
 					</div>
             <div class="form-group ">
                 <input id="button" type="submit" class="btn btn-primary btn-lg btn-block" name="submit" value="Register">
-            </div>
-            <div id = "register-error">
-               <?php if($error_exists){
-                  echo $Error;
-                  $error_exists =FALSE;
-               } ?>
             </div>
             </form>	
             </div>
