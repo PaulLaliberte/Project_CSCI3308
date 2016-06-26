@@ -24,16 +24,16 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-
+//add drones
 if (!empty($_POST["verifyid"]) && !empty($_POST["verifypass"]) && !empty($_POST["drones"])){
-   $sql = "SELECT Id FROM Clients WHERE Business = '$_POST[verifyid]' AND Password = '$_POST[verifypass]';";
+   $sql = "SELECT Id,Lat,Lon FROM Clients WHERE Business = '$_POST[verifyid]' AND Password = '$_POST[verifypass]';";
    $res = $conn->query($sql);
    $num = (int) $_POST["drones"];
    if($num > 0){
       if ($res->num_rows ==1){
          $row = $res->fetch_assoc();
          if ($row["Id"]==$_SESSION["ClientID"]){
-            $sql_in = "INSERT INTO Drones (Id, Status, Details, Renter) VALUES (NULL, 4, 'Available', '$_SESSION[ClientID]');";
+            $sql_in = "INSERT INTO Drones (Id, Status, Renter, Lat, Lon) VALUES (NULL, 4, '$_SESSION[ClientID]', '$row[Lat]', '$row[Lon]');";
             for ($i=1; $i<= $num; $i++){
                if($conn->query($sql_in)){
                }else{ 
