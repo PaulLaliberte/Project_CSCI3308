@@ -41,7 +41,7 @@ if (!empty($_POST['user'])){
   </head>
   <body>
   <style type="text/css">
-    body { background: #cfcfcf !important; }
+    body { background: #c0c0c0 !important; }
     </style>    
 <div class = "navbar navbar-inverse navbar-custom" role="navigation">
   <div class="container">
@@ -77,7 +77,7 @@ if (!empty($_POST['user'])){
                <hr />
             </div>
          </div>
-         <div class="main-login main-center">
+         <div class="main-login main-center" style="width:75%; margin-left:auto; margin-right:auto;">
             <div class="form-horizontal">
                <form method="POST" action="index.php">
                   <div class="form-group">
