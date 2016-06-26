@@ -117,6 +117,23 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 			.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
 			.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
 			.tg .tg-yw4l{vertical-align:top}
+      #wrapper {
+     width: 1005px;
+     margin: 20 auto;
+}
+#leftcolumn, #rightcolumn {
+    border: 1px solid white;
+    float: left;
+    min-height: 450px;
+}
+#leftcolumn {
+     width: 45%;
+     /*border-right: 2px solid black;*/
+     margin-right: 5%;
+}
+#rightcolumn {
+     width: 40%;
+}
 		</style>
   </head>
 <body>
@@ -183,8 +200,14 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
          ?>			
 			</table><br><br>
 	
-        <div class="container" style="margin-left:auto;margin-right:auto;text-align:center;">
-            <h4>All Rented Drones</h4><br>
+        <div class="container" id="wrapper">
+          <div id="leftcolumn">
+          <div class="panel-heading">
+            <div class="panel-title text-center">
+               <div name="drone" id ="drone" ><h3 class="title">All Rented Drones</h3></div>
+               <hr />
+            </div>
+         </div>
             <table class="tg">
 			<tr>
 			<th class="tg-yw4l">Drone ID</th>
@@ -207,9 +230,9 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
          }
 
          ?>			
-			</table><br><br>
+			</table></div>
 				
-      <div class="container">
+      <div class="container" id="rightcolumn">
         <div class="row main">
           <div class="panel-heading">
             <div class="panel-title text-center">
@@ -246,7 +269,7 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
                         <input type="text" class="form-control" name="drones" placeholder="Positive number to add drones, negative to remove"></input>
                      </div>
                   </div>
-               </div>	
+               </div>
                <div class="form-group ">
                      <input type="submit" class="btn btn-primary btn-lg btn-block" value="Process Request">
                </div>
@@ -255,8 +278,8 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
          </div>
       </div>
    </div>
-
-			<div>
+  </div>
+			<div style="width: 100%;">
             <p>Click <a href="/clientHome.php">here</a> to go back to top.</p>
         </div>
     </body>
