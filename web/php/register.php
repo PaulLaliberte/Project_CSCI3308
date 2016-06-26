@@ -53,7 +53,9 @@ if (!empty($_POST['name'])&&!empty($_POST['user'])&&!empty($_POST['address'])){
     <link rel="stylesheet" href="/styling/index_styling.css" type="text/css"/> 
   </head>
   <body>
-    
+    <style type="text/css">
+    body { background: #cfcfcf !important; }
+    </style> 
 <div class = "navbar navbar-inverse navbar-custom" role="navigation">
   <div class="container">
     <div class="navbar-header">
