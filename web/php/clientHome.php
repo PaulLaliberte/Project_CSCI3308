@@ -40,7 +40,7 @@ if (!empty($_POST["verifyid"]) && !empty($_POST["verifypass"]) && !empty($_POST[
                   echo "Error registering drones, please try again";
                }
             }
-            header("Location: /clientHome.php");
+            header("Location: /orderPage.php");
             exit();
          }else{
             echo "Logged in as different user, drone request failed";
@@ -59,7 +59,7 @@ if (!empty($_POST["verifyid"]) && !empty($_POST["verifypass"]) && !empty($_POST[
             echo "Failed to remove drones";
          }
       }
-      header("Location:/clientHome.php");
+      header("Location:/clientHome.php#drones");
       exit();
       
    }
@@ -99,9 +99,8 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 	if ($conn->query($sql) === TRUE) {
 		echo 'Your Order, #'.$conn->insert_id.', has been placed.  <br><a href="/clientHome.php">Click here to go back.</a>';
       //update drone status
-      $status = "UPDATE Drones SET Status = 1 WHERE Id = '$_SESSION[ClientID]';";
+      $status = "UPDATE Drones SET Status = 1 WHERE Id = '$droneID';";
       if ($conn->query($status)){
-         echo "success";
       }else{
          echo "Failed to update drone status";
       }
@@ -400,17 +399,7 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
                   <div class = "cols-sm-10">
                      <p id='cost'></p>
                   </div>
-               </div><br><br>
-
-
-<!--  From paypal button creator -->
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="SZX68WM8AQN7S">
-<input type="hidden" name="currency_code" value="USD">
-<input style="display: block; margin: 0 auto;" type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-</form>
+               </div>
 
                <div class="form-group ">
                      <input type="submit" class="btn btn-primary btn-lg btn-block" value="Process Request">

@@ -13,3 +13,12 @@ Our vision is to create the most user-friendly UAS (drone) package delivery mana
    1. Launch the server with the following command in the web/php/ directory: $ php -S localhost:8080
    2. Copy http://localhost:8080 and paste into browser.
    3. If you would like to login as a demo user to view current features and client experience: Username: WTC Password: password
+
+####Navigation:
+1. /Project_CSCI3308 --> contains all pertinent project submission documents.
+2. /Project_CSCI3308/web/php --> contains:
+   1. Doxygen Auto Documentor Files
+   2. Automated Tests
+   3. Source Code(.php & .csv)
+
+*Important Note:/Project_CSCI3308/web/flask_inactive contains flask web frame work and initial .html files which were transitioned to .php files. They show the initial start of the project and nothing more.
