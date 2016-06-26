@@ -127,14 +127,22 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
     min-height: 450px;
 }
 #leftcolumn {
-     width: 45%;
+     width: 30%;
      /*border-right: 2px solid black;*/
      margin-right: 5%;
 }
 #rightcolumn {
-     width: 40%;
+     width: 60%;
 }
 		</style>
+                           <script type="text/javascript">
+                     function calculateCost(){
+                        var num = document.getElementById('drones').value;
+                        var output = num*250;
+                        document.getElementById('cost').innerHTML = "$"+output+".00";
+                     }
+                     </script>
+
   </head>
 <body>
    <div class = "navbar navbar-inverse navbar-custom" role="navigation">
@@ -261,15 +269,32 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
                      </div>
                   </div>
                </div>
-               <div class="form-group">
+               <div class="form-group" style="width:60%;float:left;">
                   <label for="drones" class="cols-sm-2 control-label">Number of Drones to Request/Remove</label>
                   <div class="cols-sm-10">
                      <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="drones" placeholder="Positive number to add drones, negative to remove"></input>
+                        <input onchange="calculateCost()" type="text" class="form-control" id='drones' name="drones" placeholder="Positive number to add drones, negative to remove"></input>
                      </div>
                   </div>
                </div>
+               <div class="form-group" style="width:40%;float:right">
+                  <label for="cost" class = "cols-sm-2 control-label">Monthly Cost</label>
+                  <div class = "cols-sm-10">
+                     <p id='cost'></p>
+                  </div>
+               </div><br><br>
+
+
+<!--  From paypal button creator -->
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="CKP5U8Q9DBZLG">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+
+
+   
                <div class="form-group ">
                      <input type="submit" class="btn btn-primary btn-lg btn-block" value="Process Request">
                </div>
