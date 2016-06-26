@@ -51,7 +51,7 @@ if (!empty($_POST["verifyid"]) && !empty($_POST["verifypass"]) && !empty($_POST[
             echo "Failed to remove drones";
          }
       }
-      header("Location: /https://www.paypal.com/cgi-bin/webscr");
+      header("Location: clientHome.php");
       exit();
 
    }
@@ -154,7 +154,13 @@ if (!empty($_POST["verifyid"]) && !empty($_POST["verifypass"]) && !empty($_POST[
 <input type="hidden" name="hosted_button_id" value="CKP5U8Q9DBZLG">
 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
 <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+
+               <div class="form-group ">
+                     <input type="submit" class="btn btn-primary btn-lg btn-block" value="Process Request">
+               </div>
+
 </form>
+
             </div>
          </div>
       </div>

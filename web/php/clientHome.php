@@ -269,12 +269,12 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
                      </div>
                   </div>
                </div>
-               <div class="form-group" style="width:60%;float:left;">
+               <div class="form-group" style="width:70%;float:left;">
                   <label for="drones" class="cols-sm-2 control-label">Number of Drones to Request/Remove</label>
                   <div class="cols-sm-10">
                      <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                        <input onchange="calculateCost()" type="text" class="form-control" id='drones' name="drones" placeholder="Positive number to add drones, negative to remove"></input>
+                        <input onchange="calculateCost()" type="text" class="form-control" id='drones' name="drones" placeholder="Positive to add, negative to remove"></input>
                      </div>
                   </div>
                </div>
