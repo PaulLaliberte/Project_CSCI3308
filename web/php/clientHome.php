@@ -120,9 +120,9 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 
         <style type="text/css">
 			.tg  {border-collapse:collapse;border-spacing:0;margin-left:auto;margin-right:auto;}
-			.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-			.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-			.tg .tg-yw4l{vertical-align:top}
+      .tg td{font-family:Arial, sans-serif;font-size:16px;padding:10px 10px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+      .tg th{font-family:Arial, sans-serif;font-size:16px;font-weight:normal;padding:10px 10px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+      .tg .tg-yw4l{vertical-align:top}
       #wrapper {
      width: 1005px;
      margin: 20 auto;
