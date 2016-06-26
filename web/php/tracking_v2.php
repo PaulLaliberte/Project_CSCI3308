@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 /**
 * @Author Paul, Will, Nicholas, Kylee
 * @file
@@ -9,14 +9,7 @@
 
 if(isset($_GET['OrderId'])) {
 
-<<<<<<< HEAD
-
 	$senderCoordinates = array(0,0);
-
-
-=======
-	$senderCoordinates = array(0,0);  
->>>>>>> 6feb91b408a84d15a80dc65bd80b88526457ad53
 	$recieverCoordinates = array(0,0);
 	$droneCoordinates = array(0,0);
 
@@ -271,7 +264,14 @@ if(isset($_GET['OrderId'])) {
 				text-align: center;
 			};
 		</style>
-                <p>Click <a href="/">here</a> to go home.</p>
+        <?php
+            if(isset($_SESSION['ClientID'])){
+               $url = "/clientHome.php";
+            }else{
+               $url = "/";
+            }
+            echo "<p>Click <a href='$url'>here</a> to go home.</p>";
+         ?>
         </div>
 
     </body>
