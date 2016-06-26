@@ -81,6 +81,9 @@ if(isset($_GET['OrderId'])) {
 	<link rel="stylesheet" type="text/css" href="trackingstyle.css">
     </head>
     <body>
+	<style type="text/css">
+	body { background: lightgray !important; }
+	</style>
 	<div id= 'title'>
      	    <h2>Delivery Status:</h2>Please Click the Drone Icon to view delivery details.
 	</div>
@@ -233,6 +236,13 @@ if(isset($_GET['OrderId'])) {
 }
 ?>
 	<div class="tracking">
+		<style type="text/css">
+			div.tracking {        
+				text-align: center;
+        			font-family: "Lucida Console", Lucida, Monospace;
+				margin: 25px;
+ 			};
+		</style>
 		<form action="" method="get">
 			<h4>Enter an order number to track your delivery.</h4>
 			Order number:
@@ -241,6 +251,12 @@ if(isset($_GET['OrderId'])) {
 		</form>
 	</div>
 	<div class="container">
+		<style type="text/css">
+			div.container { 
+				font-family: "Lucida Console", Lucida, Monospace;
+				text-align: center;
+			};
+		</style>
                 <p>Click <a href="/">here</a> to go home.</p>
         </div>
 
