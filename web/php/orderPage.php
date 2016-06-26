@@ -6,46 +6,9 @@
 -->
 <html>
 <body>
-<style>
-.title{
-    font-weight:bold;
-}
-.buy
-{
-    border: 1px solid #cecece;
-    padding: 10px;
-    margin: 5px;
-    padding: 5px;
-    text-align: center;
-    width: 300px;
- 
-   
-}
-</style>
+
 <div style="text-align:center">
     <h2>Paypal Payment</h2>   
-   
-<h3>Buy this item now.</h3>
- 
-<div class="buy">   
-    <!-- Logo source code from: https://www.paypal.com/us/webapps/mpp/logo-center -->
-    <div class="image">
-   <!-- PayPal Logo --><table border="0" cellpadding="10" cellspacing="0" align="center"><tr><td align="center"></td></tr><tr><td align="center"><a href="https://www.paypal.com/webapps/mpp/paypal-popup" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg" border="0" alt="PayPal Logo"></a></td></tr></table><!-- PayPal Logo --> 
-
-    </div>
-    <div class="title">
-        Order with Paypal.
-        <br /><br />
-    </div>
-
-    <div class="container">
-        <div class="row main">
-          <div class="panel-heading">
-            <div class="panel-title text-center">
-               <div name="order" id ="order" ><h3 class="title">Place Order</h3></div>
-               <hr />
-            </div>
-         </div>
          <div class="main-login main-center">
             <div class="form-horizontal">
 		      <form action="" method="GET" id="orderForm">
@@ -144,17 +107,21 @@
       </div>
    </div>
 </div>
-
-    <div class="btn">
-    
-    <form action="<?php echo $payment_url; ?>" method="post" name="frmPayPal1">
-    <input typ name="handling" value="0">
-    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-    </form> 
-    </div>
-</div>
- 
+<!--  From paypal button creator -->
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="SZX68WM8AQN7S">
+<table align="center">
+<tr><td><input type="hidden" name="on0" value="Drone Options">Drone Options</td></tr><tr><td><select name="os0">
+	<option value="Option 1">Option 1 $250.00 USD</option>
+	<option value="Option 2">Option 2 $500.00 USD</option>
+	<option value="Option 3">Option 3 $1,000.00 USD</option>
+</select> </td></tr>
+</table>
+<input type="hidden" name="currency_code" value="USD">
+<input style="display: block; margin: 0 auto;" type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
 </div>
 </style>
 </body>
