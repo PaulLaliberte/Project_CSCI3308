@@ -31,7 +31,7 @@ if (!empty($_POST['name'])&&!empty($_POST['user'])&&!empty($_POST['address'])){
          echo "Could not parse address into coordinates, please contact the developers.";
          exit();
       }
-      $sql_in = "INSERT INTO Clients (Id, Name, Password, Business, SenderLat, SenderLong) VALUES (NULL, '$_POST[name]', '$_POST[pass]', '$_POST[user]', '$lat', '$long');";
+      $sql_in = "INSERT INTO Clients (Id, Name, Password, Business, Lat, Lon) VALUES (NULL, '$_POST[name]', '$_POST[pass]', '$_POST[user]', '$lat', '$long');";
       echo $sql_in;
       if($conn->query($sql_in) == TRUE){
          header("Location: /");
