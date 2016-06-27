@@ -40,8 +40,8 @@ if(isset($_GET['OrderId'])) {
 	if ($result->num_rows > 0) {
 		// output data of each row
 		while($row = $result->fetch_assoc()) {
-			$senderCoordinates[0] = $row["SenderLat"];
-			$senderCoordinates[1] = $row["SenderLong"];
+			$senderCoordinates[0] = $row["Lat"];
+			$senderCoordinates[1] = $row["Lon"];
 		}
 	} else {
 		echo 'Database Error, please contact the developers or click the link below to make sure that OrderId is set in the URL.<br>
@@ -56,10 +56,10 @@ if(isset($_GET['OrderId'])) {
 	if ($result->num_rows > 0) {
 		// output data of each row
 		while($row = $result->fetch_assoc()) {
-			$recieverCoordinates[0] = $row["RecieverLat"];
-			$recieverCoordinates[1] = $row["RecieverLong"];
-			$droneCoordinates[0] = $row["DroneLat"];
-			$droneCoordinates[1] = $row["DroneLong"];
+			$recieverCoordinates[0] = $row["Lat"];
+			$recieverCoordinates[1] = $row["Lon"];
+			$droneCoordinates[0] = $row["Lat"];
+			$droneCoordinates[1] = $row["Lon"];
 			$droneTimeOut = $row["TimeOut"];
 		}
 	} else {
