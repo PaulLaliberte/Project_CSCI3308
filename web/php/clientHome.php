@@ -34,14 +34,17 @@ if (!empty($_POST["verifyid"]) && !empty($_POST["verifypass"]) && !empty($_POST[
          $row = $res->fetch_assoc();
          if ($row["Id"]==$_SESSION["ClientID"]){
             $sql_in = "INSERT INTO Drones (Id, Status, Renter, Lat, Lon) VALUES (NULL, 4, '$_SESSION[ClientID]', '$row[Lat]', '$row[Lon]');";
-            $droneID = $conn->insert_id;
-            $drone_stat = "SELECT Id FROM Orders WHERE ClientId='$_SESSION[ClientID]' AND Status = 0 LIMIT 1;";
             for ($i=1; $i<= $num; $i++){
                if($conn->query($sql_in)){
+                  $droneID = $conn->insert_id;
+                  $drone_stat = "SELECT Id FROM Orders WHERE ClientId='$_SESSION[ClientID]' AND Status = 0 LIMIT 1;";
                   $result = $conn->query($drone_stat);
                   if($result->num_rows == 1){
                      $rows = $result->fetch_assoc();
+                     echo $droneID."<br><br>".$rows[Id]."<br><br>";
                      $add = "UPDATE Drones,Orders SET Orders.Status=1,Drones.Status=1,Orders.DroneId='$droneID' WHERE Drones.Id = '$droneID' AND Orders.Id = '$rows[Id]';";
+                     $result = $conn->query($add);
+                     exit();
                   }
                }else{ 
                   echo "Error registering drones, please try again";
