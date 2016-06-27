@@ -41,10 +41,8 @@ if (!empty($_POST["verifyid"]) && !empty($_POST["verifypass"]) && !empty($_POST[
                   $result = $conn->query($drone_stat);
                   if($result->num_rows == 1){
                      $rows = $result->fetch_assoc();
-                     echo $droneID."<br><br>".$rows[Id]."<br><br>";
                      $add = "UPDATE Drones,Orders SET Orders.Status=1,Drones.Status=1,Orders.DroneId='$droneID' WHERE Drones.Id = '$droneID' AND Orders.Id = '$rows[Id]';";
                      $result = $conn->query($add);
-                     exit();
                   }
                }else{ 
                   echo "Error registering drones, please try again";
