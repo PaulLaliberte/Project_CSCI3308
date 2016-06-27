@@ -99,7 +99,7 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 	if ($conn->query($sql)) {
 		echo 'Your Order, #'.$conn->insert_id.', has been placed.  <br><a href="/clientHome.php">Click here to go back.</a>';
       //update drone status
-      $status = "UPDATE Orders SET Status = 1 WHERE DroneId = '$droneID';UPDATE Drones SET Status = 1 WHERE Id = '$droneID';";
+      $status = "UPDATE Drones,Orders SET Orders.Status = 1,Drones.Status=1 WHERE DroneId = '$droneID' AND Drones.Id = '$droneID' AND Drones.Id=DroneId;";  
       if ($conn->query($status)){
       }else{
          echo "Failed to update drone status";
@@ -196,9 +196,14 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 					} else {
 						$timeOut = date('Y-m-d H:i:s',$row["TimeOut"]);
 					}
+               if ($row['OrderStatus'] == 1){
+                  $status = "Drone Assigned";
+               }else{
+                  $status = "Drone Not Assigned";
+               }
 					echo '<tr>
 					<td class="tg-yw4l">'.$row["Id"].'</td>
-					<td class="tg-yw4l">'.$row["Status"].'</td>
+					<td class="tg-yw4l">'.$status.'</td>
 					<td class="tg-yw4l"><a href="/tracking_v2.php?OrderId='.$row["OrderId"].'">'.$row["OrderId"].'</a></td>
 					<td class="tg-yw4l">'.$row["Details"].'</td>
 					<td class="tg-yw4l">'.$timeOut.'</td>
