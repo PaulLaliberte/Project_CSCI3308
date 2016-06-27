@@ -36,6 +36,16 @@ if (!empty($_POST["verifyid"]) && !empty($_POST["verifypass"]) && !empty($_POST[
             $sql_in = "INSERT INTO Drones (Id, Status, Renter, Lat, Lon) VALUES (NULL, 4, '$_SESSION[ClientID]', '$row[Lat]', '$row[Lon]');";
             for ($i=1; $i<= $num; $i++){
                if($conn->query($sql_in)){
+                  $droneID = $conn->insert_id;
+                  $drone_stat = "SELECT Id FROM Orders WHERE ClientId='$_SESSION[ClientID]' AND Status = 0 LIMIT 1;";
+                  $result = $conn->query($drone_stat);
+                  if($result->num_rows == 1){
+                     $rows = $result->fetch_assoc();
+                     echo $droneID."<br><br>".$rows[Id]."<br><br>";
+                     $add = "UPDATE Drones,Orders SET Orders.Status=1,Drones.Status=1,Orders.DroneId='$droneID' WHERE Drones.Id = '$droneID' AND Orders.Id = '$rows[Id]';";
+                     $result = $conn->query($add);
+                     exit();
+                  }
                }else{ 
                   echo "Error registering drones, please try again";
                }
@@ -184,7 +194,7 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 			<th class="tg-yw4l">Departure Time</th>
 			</tr>
 			<?php
-         $sql = "SELECT Drones.Id,Drones.Status,Orders.Id AS OrderId,Orders.TimeOut,Orders.Status AS OrderStatus,Status.Description AS Details FROM Drones RIGHT JOIN Orders ON Drones.Id=Orders.DroneId LEFT JOIN Status ON Drones.Status=Status.Id WHERE Orders.ClientId = '$_SESSION[ClientID]' OR Drones.Renter = '$_SESSION[ClientID]';" ;
+         $sql = "SELECT Drones.Id,Drones.Status,Orders.Id AS OrderId,Orders.TimeOut,Orders.Status AS OrderStatus,Status.Description AS Details FROM Drones RIGHT JOIN Orders ON Drones.Id=Orders.DroneId LEFT JOIN Status ON Drones.Status=Status.Id WHERE Orders.ClientId = '$_SESSION[ClientID]' OR Drones.Renter = '$_SESSION[ClientID]' ORDER BY Orders.Id;" ;
          $result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
