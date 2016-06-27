@@ -267,7 +267,7 @@ if(isset($_GET['OrderId'])) {
 		</style>
         <?php
             if(isset($_SESSION['ClientID'])){
-               $url = "/index.php";
+               $url = "/clientHome.php"; // This should not be redirecting to index.php because this line only executes when the user is already logged in.
             }else{
                $url = "/";
             }
