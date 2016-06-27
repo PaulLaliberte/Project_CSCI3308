@@ -194,7 +194,7 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 			<th class="tg-yw4l">Departure Time</th>
 			</tr>
 			<?php
-         $sql = "SELECT Drones.Id,Drones.Status,Orders.Id AS OrderId,Orders.TimeOut,Orders.Status AS OrderStatus,Status.Description AS Details FROM Drones RIGHT JOIN Orders ON Drones.Id=Orders.DroneId LEFT JOIN Status ON Drones.Status=Status.Id WHERE Orders.ClientId = '$_SESSION[ClientID]' OR Drones.Renter = '$_SESSION[ClientID]';" ;
+         $sql = "SELECT Drones.Id,Drones.Status,Orders.Id AS OrderId,Orders.TimeOut,Orders.Status AS OrderStatus,Status.Description AS Details FROM Drones RIGHT JOIN Orders ON Drones.Id=Orders.DroneId LEFT JOIN Status ON Drones.Status=Status.Id WHERE Orders.ClientId = '$_SESSION[ClientID]' OR Drones.Renter = '$_SESSION[ClientID]' ORDER BY Orders.Id;" ;
          $result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
