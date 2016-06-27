@@ -81,7 +81,7 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 	}
 
 	//get receiver location, drone position, and drone launch time
-	$sql = "SELECT Id FROM Drones WHERE Status=4 AND Renter = '$_SESSION[ClientID]' LIMIT 1;"; //This is a bug because 0 is currently for "Returning to Base", but it should be "drone availiable".
+	$sql = "SELECT Id FROM Drones WHERE Status=4 AND Renter = '$_SESSION[ClientID]' LIMIT 1;";
 	$result = $conn->query($sql);
 
 	if ($result->num_rows == 1) { 
@@ -94,12 +94,12 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 	}
 	$orderTime = time();
 	//Insert the order into the database
-	$sql = 'INSERT INTO Orders (OrderId, ClientId, DroneId, OrderTimestamp, RecieverLat, RecieverLong, Status, TimeOut, DroneLat, DroneLong) VALUES (NULL, '.$_SESSION["ClientID"].', '.$droneID.', '.$orderTime.', '.$recieverLat.', '.$recieverLon.', 1, NULL, NULL, NULL);';
+	$sql = 'INSERT INTO Orders (Id, ClientId, DroneId, OrderTimestamp, Lat, Lon, Status, TimeOut) VALUES (NULL, '.$_SESSION["ClientID"].', '.$droneID.', '.$orderTime.', '.$recieverLat.', '.$recieverLon.', 0, NULL);';
 
-	if ($conn->query($sql) === TRUE) {
+	if ($conn->query($sql)) {
 		echo 'Your Order, #'.$conn->insert_id.', has been placed.  <br><a href="/clientHome.php">Click here to go back.</a>';
       //update drone status
-      $status = "UPDATE Drones SET Status = 1 WHERE Id = '$droneID';";
+      $status = "UPDATE Orders SET Status = 1 WHERE DroneId = '$droneID';UPDATE Drones SET Status = 1 WHERE Id = '$droneID';";
       if ($conn->query($status)){
       }else{
          echo "Failed to update drone status";
@@ -182,11 +182,10 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 			<th class="tg-yw4l">Order ID</th>
 			<th class="tg-yw4l">Order status</th>
 			<th class="tg-yw4l">Departure Time</th>
-			<th class="tg-yw4l">Notifications</th>
 			</tr>
 			<?php
-			$sql = "select Drones.Id,Drones.Details,Drones.Details AS DroneStatus,Orders.OrderId,Orders.TimeOut,OrderStatus.Description AS Status FROM Drones RIGHT JOIN Orders ON Drones.Id=Orders.DroneId LEFT JOIN OrderStatus ON OrderStatus.Status=Orders.Status WHERE Orders.ClientId = ".$_SESSION["ClientID"]." OR Drones.Renter = ".$_SESSION["ClientID"]." ORDER BY OrderId,Id;";
-			$result = $conn->query($sql);
+         $sql = "SELECT Drones.Id,Drones.Status,Orders.Id AS OrderId,Orders.TimeOut,Orders.Status AS OrderStatus,Status.Description AS Details FROM Orders JOIN Drones ON DroneId = Drones.Id JOIN Status ON Drones.Status=Status.Id WHERE Renter='$_SESSION[ClientID]';" ;
+         $result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
 				// output data of each row
@@ -199,11 +198,10 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 					}
 					echo '<tr>
 					<td class="tg-yw4l">'.$row["Id"].'</td>
-					<td class="tg-yw4l">'.$row["DroneStatus"].'</td>
-					<td class="tg-yw4l"><a href="/tracking_v2.php?OrderId='.$row["OrderId"].'">'.$row["OrderId"].'</a></td>
 					<td class="tg-yw4l">'.$row["Status"].'</td>
-					<td class="tg-yw4l">'.$timeOut.'</td>
+					<td class="tg-yw4l"><a href="/tracking_v2.php?OrderId='.$row["OrderId"].'">'.$row["OrderId"].'</a></td>
 					<td class="tg-yw4l">'.$row["Details"].'</td>
+					<td class="tg-yw4l">'.$timeOut.'</td>
 					</tr>';
 						
 				}
@@ -338,7 +336,7 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 			<th class="tg-yw4l">Drone Status</th>
 			</tr>
 			<?php
-			$sql = "SELECT * FROM Drones WHERE Renter = '$_SESSION[ClientID]';";
+         $sql =  "Select Drones.Id,Description from Drones,Status Where Drones.Status = Status.Id AND Renter = '$_SESSION[ClientID]'";
          $result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
@@ -346,7 +344,7 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 				while($row = $result->fetch_assoc()) {
 					echo '<tr>
 					<td class="tg-yw4l">'.$row["Id"].'</td>
-					<td class="tg-yw4l">'.$row["Details"].'</td>
+					<td class="tg-yw4l">'.$row["Description"].'</td>
 					</tr>';
 				}
 			} else{
