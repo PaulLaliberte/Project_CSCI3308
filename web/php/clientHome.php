@@ -160,6 +160,7 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
 
   </head>
 <body>
+ <link rel="stylesheet" href="/styling/clientHomeNavbar.css" type="text/css"/> 
    <div class = "navbar navbar-inverse navbar-custom" role="navigation">
       <div class="container">
          <div class="navbar-header">
