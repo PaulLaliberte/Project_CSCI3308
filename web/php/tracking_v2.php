@@ -27,7 +27,7 @@ if(isset($_GET['OrderId'])) {
 	
 
 	//validate the given order id number
-	$sql = "SELECT OrderId FROM Orders WHERE OrderId=".$orderId.";";
+	$sql = "SELECT Id FROM Orders WHERE Id=".$orderId.";";
 	$result = $conn->query($sql);
 	
 	
@@ -35,7 +35,7 @@ if(isset($_GET['OrderId'])) {
 		// the orderid is valid, show the map	
 
 	//get sender location
-	$sql = "SELECT SenderLat,SenderLong from Clients WHERE Id = (SELECT ClientId FROM Orders WHERE OrderID=".$orderId.");";
+	$sql = "SELECT Lat,Lon FROM Clients WHERE Id = (SELECT ClientId FROM Orders WHERE Id=".$orderId.");";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
 		// output data of each row
@@ -50,7 +50,7 @@ if(isset($_GET['OrderId'])) {
 	}
 
 	//get receiver location, drone position, and drone launch time
-	$sql = "SELECT RecieverLat,RecieverLong,DroneLat,DroneLong FROM Orders WHERE OrderID=".$orderId.";";
+	$sql = "SELECT Orders.ClientId,Orders.DroneId,Orders.Lat,Orders.Lon,Drones.lat,Drones.Lon FROM Orders JOIN Drones ON Drones.Id=Orders.DroneId WHERE Orders.Id=".$orderId.";";
 	$result = $conn->query($sql);
 
 	if ($result->num_rows > 0) {
