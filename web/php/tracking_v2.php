@@ -253,7 +253,7 @@ if(isset($_GET['OrderId'])) {
 			<h4>Enter an order number to track your delivery.</h4>
 			Order number:
 			<input type="text" name="OrderId">
-			<input type="submit">
+			<input type="submit" name="submit">
 		</form>
 	</div>
 	<div class="container">
@@ -267,7 +267,7 @@ if(isset($_GET['OrderId'])) {
 		</style>
         <?php
             if(isset($_SESSION['ClientID'])){
-               $url = "/clientHome.php";
+               $url = "/index.php";
             }else{
                $url = "/";
             }
