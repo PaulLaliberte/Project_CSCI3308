@@ -423,7 +423,7 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
    </div>
   </div>
 			<div style="width: 100%;">
-            <p>Click <a href="/clientHome.php">here</a> to go back to top.</p>
+            <p>Click <a href="/#top">here</a> to go back to top.</p>
         </div>
     </body>
 <html>
