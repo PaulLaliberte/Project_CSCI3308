@@ -5,10 +5,13 @@
 <!-- Code adapted from http://earlysandwich.com/programming/php/integrate-paypal-payment-system-website-php-mysql-261/
 -->
 <html>
+<head>
+<title>Paypal</title>
+</head>
 <body>
 
 <div style="text-align:center">
-    <h2>Paypal Payment</h2>   
+    <h1>Paypal Payment</h1>
 <!--  From paypal button creator -->
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 <input type="hidden" name="cmd" value="_s-xclick">

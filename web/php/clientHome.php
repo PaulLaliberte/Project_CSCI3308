@@ -239,7 +239,7 @@ if (!empty($_GET["address"]) && !empty($_GET["weight"]) && !empty($_GET["city"])
             <div class="form-horizontal">
           <form action="" method="GET" id="orderForm">
                <div class="form-group">
-                  <label for="address" class="cols-sm-2 control-label">Recipient Street</label>
+                  <label for="address" name="address" class="cols-sm-2 control-label">Recipient Street</label>
                   <div class="cols-sm-10">
                      <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
