@@ -25,7 +25,6 @@ if(isset($_GET['OrderId'])) {
 		die("Connection failed: " . $conn->connect_error);
 	}
 	
-
 	//validate the given order id number
 	$sql = "SELECT Id FROM Orders WHERE Id=".$orderId.";";
 	$result = $conn->query($sql);
@@ -48,34 +47,21 @@ if(isset($_GET['OrderId'])) {
 		<a href="?OrderId=121114">clientTracking.php?OrderId=121114</a><br><br>
 		';
 	}
-	
-	//get reciever location
-	$sql = "SELECT Orders.Lat,Orders.Lon FROM Orders WHERE Orders.Id=".$orderId.";";
-	$result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-                // output data of each row
-                while($row = $result->fetch_assoc()) {
-                        $recieverCoordinates[0] = $row["Lat"];
-                        $recieverCoordinates[1] = $row["Lon"];
-                }
-        } else {
-                echo "Database Error, please contact the developers.";
-        }
-
-
-
 
 	//get receiver location, drone position, and drone launch time
-	$sql = "SELECT Drones.Lat,Drones.Lon,Drones.Status FROM Drones,Orders WHERE Orders.DroneId=Drones.Id AND Orders.Id=".$orderId.";";
+	$sql = "SELECT Orders.ClientId,Orders.DroneId,Orders.Lat AS RLat,Orders.Lon AS RLon,Drones.lat AS DLat,Drones.Lon AS DLon,Orders.TimeOut,Status.Description AS Status,Status.Id AS StatusID FROM Orders JOIN Drones ON Drones.Id=Orders.DroneId JOIN Status ON Status.Id=Drones.Status WHERE Orders.Id=".$orderId.";";
 	$result = $conn->query($sql);
 
 	if ($result->num_rows > 0) {
 		// output data of each row
 		while($row = $result->fetch_assoc()) {
-			$droneCoordinates[0] = $row["Lat"];
-			$droneCoordinates[1] = $row["Lon"];
+			$recieverCoordinates[0] = $row["RLat"];
+			$recieverCoordinates[1] = $row["RLon"];
+			$droneCoordinates[0] = $row["DLat"];
+			$droneCoordinates[1] = $row["DLon"];
+			$droneTimeOut = $row["TimeOut"];
 			$droneStatus = $row["Status"];
+			$droneStatusID = $row["StatusID"];
 		}
 	} else {
 		echo "Database Error, please contact the developers.";
@@ -143,31 +129,23 @@ if(isset($_GET['OrderId'])) {
 				'</div>' + 
 				'<h1 id="firstHeading" class="firstHeading">Delivery Info</h1>' +  
 				'<p><b>Order ID: </b>' + '<?php echo $orderId?>' + '</p>' +
-				'<b>Current Status: </b>' + '<?php
-					if ($droneStatus == 1) { 
-						echo "Pending.";
-					} else if ($droneStatus == 2) {
-						echo "In transit.";
-					} else if ($droneStatus ==3) {
-						echo "Delivered.";
-					} else if ($droneStatus == 4) {
-						echo "Available.";
-					} else {
-						echo "Error: Unable to obtain status, check back later.";
-					}				
-				?>' + '</p>' +
+				'<b>Current Status: </b>' + '<?php echo $droneStatus; ?>' + '</p>' +
 				'<b>Flight Speed:</b> 20 meters per second (45 miles per hour)</p>' + 
 				'<b>Delivery ETA: </b>' + '<?php
-					if ($time <=0) {
- 						echo "delivery complete.";
-					} else if ($time < 1) {
-						$time = intval($time * 60);
-						echo "estimated $time minutes until arrival.";
+					if ($droneStatusID == 2) {
+						if ($time <=0) {
+	 						echo "delivery complete.";
+						} else if ($time < 1) {
+							$time = intval($time * 60);
+							echo "estimated $time minutes until arrival.";
+						} else {
+							$seconds = $time * 3600;
+							$hours = floor(($seconds % 86400) / 3600);
+							$minutes = floor(($seconds % 3600) / 60);
+							echo "estimated $hours hours $minutes minutes until arrival.";
+						}
 					} else {
-						$seconds = $time * 3600;
-						$hours = floor(($seconds % 86400) / 3600);
-						$minutes = floor(($seconds % 3600) / 60);
-						echo "estimated $hours hours $minutes minutes until arrival.";
+						echo "Order has not shipped yet.";
 					}
 				?>' + '</p>' +  
 				'</div>' + 
