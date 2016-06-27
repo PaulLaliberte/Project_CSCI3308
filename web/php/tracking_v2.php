@@ -141,14 +141,14 @@ if(isset($_GET['OrderId'])) {
  						echo "delivery complete.";
 					} else if ($time < 1) {
 						$time = intval($time * 60);
-						echo "estimated $time minutes";
+						echo "estimated $time minutes until arrival.";
 					} else {
 						$seconds = $time * 3600;
 						$hours = floor(($seconds % 86400) / 3600);
 						$minutes = floor(($seconds % 3600) / 60);
-						echo "estimated $hours hours $minutes minutes";
+						echo "estimated $hours hours $minutes minutes until arrival.";
 					}
-				?>' + ' until arrival</p>' +  
+				?>' + '</p>' +  
 				'</div>' + 
 				'</div>';
 
