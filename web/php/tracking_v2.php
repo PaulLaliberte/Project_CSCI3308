@@ -27,7 +27,7 @@ if(isset($_GET['OrderId'])) {
 	
 
 	//validate the given order id number
-	$sql = "SELECT OrderId FROM Orders WHERE OrderId=".$orderId.";";
+	$sql = "SELECT Id FROM Orders WHERE Id=".$orderId.";";
 	$result = $conn->query($sql);
 	
 	
@@ -35,13 +35,13 @@ if(isset($_GET['OrderId'])) {
 		// the orderid is valid, show the map	
 
 	//get sender location
-	$sql = "SELECT SenderLat,SenderLong from Clients WHERE Id = (SELECT ClientId FROM Orders WHERE OrderID=".$orderId.");";
+	$sql = "SELECT Lat,Lon FROM Clients WHERE Id = (SELECT ClientId FROM Orders WHERE Id=".$orderId.");";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
 		// output data of each row
 		while($row = $result->fetch_assoc()) {
-			$senderCoordinates[0] = $row["SenderLat"];
-			$senderCoordinates[1] = $row["SenderLong"];
+			$senderCoordinates[0] = $row["Lat"];
+			$senderCoordinates[1] = $row["Lon"];
 		}
 	} else {
 		echo 'Database Error, please contact the developers or click the link below to make sure that OrderId is set in the URL.<br>
@@ -50,16 +50,16 @@ if(isset($_GET['OrderId'])) {
 	}
 
 	//get receiver location, drone position, and drone launch time
-	$sql = "SELECT RecieverLat,RecieverLong,DroneLat,DroneLong FROM Orders WHERE OrderID=".$orderId.";";
+	$sql = "SELECT Orders.ClientId,Orders.DroneId,Orders.Lat,Orders.Lon,Drones.lat,Drones.Lon FROM Orders JOIN Drones ON Drones.Id=Orders.DroneId WHERE Orders.Id=".$orderId.";";
 	$result = $conn->query($sql);
 
 	if ($result->num_rows > 0) {
 		// output data of each row
 		while($row = $result->fetch_assoc()) {
-			$recieverCoordinates[0] = $row["RecieverLat"];
-			$recieverCoordinates[1] = $row["RecieverLong"];
-			$droneCoordinates[0] = $row["DroneLat"];
-			$droneCoordinates[1] = $row["DroneLong"];
+			$recieverCoordinates[0] = $row["Lat"];
+			$recieverCoordinates[1] = $row["Lon"];
+			$droneCoordinates[0] = $row["Lat"];
+			$droneCoordinates[1] = $row["Lon"];
 			$droneTimeOut = $row["TimeOut"];
 		}
 	} else {
