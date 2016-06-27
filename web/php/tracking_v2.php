@@ -48,19 +48,34 @@ if(isset($_GET['OrderId'])) {
 		<a href="?OrderId=121114">clientTracking.php?OrderId=121114</a><br><br>
 		';
 	}
+	
+	//get reciever location
+	$sql = "SELECT Orders.Lat,Orders.Lon FROM Orders WHERE Orders.Id=".$orderId.";";
+	$result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
+                        $recieverCoordinates[0] = $row["Lat"];
+                        $recieverCoordinates[1] = $row["Lon"];
+                }
+        } else {
+                echo "Database Error, please contact the developers.";
+        }
+
+
+
 
 	//get receiver location, drone position, and drone launch time
-	$sql = "SELECT Orders.ClientId,Orders.DroneId,Orders.Lat,Orders.Lon,Drones.lat,Drones.Lon FROM Orders JOIN Drones ON Drones.Id=Orders.DroneId WHERE Orders.Id=".$orderId.";";
+	$sql = "SELECT Drones.Lat,Drones.Lon,Drones.Status FROM Drones,Orders WHERE Orders.DroneId=Drones.Id AND Orders.Id=".$orderId.";";
 	$result = $conn->query($sql);
 
 	if ($result->num_rows > 0) {
 		// output data of each row
 		while($row = $result->fetch_assoc()) {
-			$recieverCoordinates[0] = $row["Lat"];
-			$recieverCoordinates[1] = $row["Lon"];
 			$droneCoordinates[0] = $row["Lat"];
 			$droneCoordinates[1] = $row["Lon"];
-			$droneTimeOut = $row["TimeOut"];
+			$droneStatus = $row["Status"];
 		}
 	} else {
 		echo "Database Error, please contact the developers.";
@@ -76,7 +91,7 @@ if(isset($_GET['OrderId'])) {
   	$dist = acos($dist);
  	$dist = rad2deg($dist);
   	$miles = $dist * 60 * 1.1515;
-	$time = $miles / 44.7387
+	$time = $miles / 44.7387;
 
 
 ?>
@@ -129,10 +144,16 @@ if(isset($_GET['OrderId'])) {
 				'<h1 id="firstHeading" class="firstHeading">Delivery Info</h1>' +  
 				'<p><b>Order ID: </b>' + '<?php echo $orderId?>' + '</p>' +
 				'<b>Current Status: </b>' + '<?php
-					if ($time <= 0) {
-						echo "delivery complete";
-					} else { 
-						echo "in transit";
+					if ($droneStatus == 1) { 
+						echo "Pending.";
+					} else if ($droneStatus == 2) {
+						echo "In transit.";
+					} else if ($droneStatus ==3) {
+						echo "Delivered.";
+					} else if ($droneStatus == 4) {
+						echo "Available.";
+					} else {
+						echo "Error: Unable to obtain status, check back later.";
 					}				
 				?>' + '</p>' +
 				'<b>Flight Speed:</b> 20 meters per second (45 miles per hour)</p>' + 
@@ -262,6 +283,8 @@ if(isset($_GET['OrderId'])) {
 			div.container { 
 				font-family: "Lucida Console", Lucida, Monospace;
 				text-align: center;
+				margin-right: auto;
+				margin-left: auto;
 			};
 		</style>
         <?php
