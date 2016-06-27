@@ -289,7 +289,7 @@ if(isset($_GET['OrderId'])) {
 		</style>
         <?php
             if(isset($_SESSION['ClientID'])){
-               $url = "/clientHome.php";
+               $url = "/index.php";
             }else{
                $url = "/";
             }
