@@ -9,7 +9,9 @@
 <title>Paypal</title>
 </head>
 <body>
-
+    <style type="text/css">
+        body { background: #c0c0c0 !important; }
+    </style>   
 <div style="text-align:center">
     <h1>Paypal Payment</h1>
 <!--  From paypal button creator -->
